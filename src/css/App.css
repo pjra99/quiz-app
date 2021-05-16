@@ -69,7 +69,10 @@
     top: 10%;
     padding-bottom: 40px;
 }
-
+.options {
+    position: relative;
+    left: 3.5%;
+}
 .options > li {
     list-style-type: none;
     padding: 1%;
@@ -159,7 +162,7 @@
   }
   .options {
     top: 20px;
-    left: 5px;
+    margin-left: 20px;
 }
 .question-template-bottom {
     top: 20px;
@@ -175,12 +178,12 @@
     left:-19px;
 }
 }
-@media only screen and (min-width: 400px){
+@media only screen and (max-width: 400px){
     .greet-user {
         top: 10%;
     }
     .options {
-        margin-left: 40px;
+        margin-left: 10px;
     }
     .question-template-bottom {
         top: 20px;
