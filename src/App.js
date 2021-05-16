@@ -1,13 +1,14 @@
 import "./css/App.css"
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import React from "react"
 import {Switch, Route, useHistory} from "react-router-dom"
 import {GrFormPreviousLink} from "react-icons/gr"
 
+
+
 function App() {
 
   const history = useHistory();
-  console.log(history)
 
   var questionsList = {
    0: {
@@ -42,6 +43,7 @@ option4: "Jack Ma"
   const [quesNo, setQuesNo] =useState(1);
   const [index, setIndex] = useState(0)
   const [noOfQuestions, setNoOfQuestions] = useState(4)
+ 
 
   var ar = []
   var j = 1
@@ -54,12 +56,13 @@ option4: "Jack Ma"
   function handleClick(i){
     setQuesNo(i+1)
     setIndex(i)
-  console.log(questionsList[i].ques)
   setQues(questionsList[i].ques)
+  console.log(index)
+  console.log(i)
    history.push({
                 pathname: '/questiontemplate',
                 state: {
-                  quesNum: index+1,
+                  quesNum: i+1,
                   question: questionsList[i].ques,
                   option1: questionsList[i].option1,
                   option2: questionsList[i].option2,
@@ -68,9 +71,8 @@ option4: "Jack Ma"
 
                 }
                 })
-                console.log(history)
-                console.log(index)
   }
+  
   const questionNavigator = ar.map((q, i)=>
    <div className="questionNoButton" onClick={()=>handleClick(i)}> {q} </div>
   )
@@ -85,7 +87,7 @@ option4: "Jack Ma"
           Quiz App
         </div>
         <div className="col-md-3 header-right-col">
-          logo 2
+         logo 2
         </div>
          </div>
          <div className="row sub-header">
@@ -110,24 +112,52 @@ option4: "Jack Ma"
            <div className="col-md-2"></div>
    <div className="col-md-2"><button onClick={()=>handleClick(index-1<0?index: index-1)}> Prev</button></div>
    <div className="col-md-2"><button onClick={()=>handleClick(index==noOfQuestions-1? index: index+1)}>Next</button></div>
-   <div className="col-md-1"></div>
+   <div className="col-md-2"></div>
    <div className="col-md-2"><button onClick={()=>history.push({pathname: '/greetuser'})} >Abort</button></div>
    <div className="col-md-2"><button>Submit</button></div>
-
          </div>
     </div>
   );
 }
 function QuestionTemplate(){
   const history = useHistory(); 
-var quesNum = history.location.state.quesNum
+var quesNo = history.location.state.quesNum
+
+const [seconds, setSeconds] = useState(59);
+const [minutes, setMinutes] = useState(10);
+
+const id =React.useRef(null);
+const clear=()=>{
+window.clearInterval(id.current)
+}
+useEffect(()=>{
+
+    id.current=window.setInterval(()=>{
+      setSeconds((time)=>time-1)
+    },1000)
+    return ()=>clear();
+},[])
+
+ useEffect(()=>{
+
+  if(seconds===-1){
+    setMinutes(minutes-1)
+    setSeconds(59)
+   }
+   if(minutes===0 && seconds===0){
+    clear()
+   }
+},[seconds])
+
   return(
     <div className="question-template">
-      <div className="row question-statement">
-        {history.location.state.question}
+      <div className="row ">
+        <div className="col-md-2"><span className="ques-num">{history.location.state.quesNum}/4</span></div>
+      <div className="col-md-8 question-statement">  {history.location.state.question}</div>
+      <div className="col-md-2"><span className="countDown">{minutes}:{seconds%10==seconds?<span>0{seconds}</span>:<span>{seconds}</span>}</span></div>
         </div>
       <div className="row">
-        <div className="col-md-3"></div>
+        <div className="col-md-3"> </div>
       <div className="col-md-9 option-section"> 
        <ul className="options">
         <li><input type="radio" name={history.location.state.question} />{history.location.state.option1}</li>
@@ -135,6 +165,8 @@ var quesNum = history.location.state.quesNum
         <li><input type="radio" name={history.location.state.question} />{history.location.state.option3}</li>
         <li><input type="radio" name={history.location.state.question} />{history.location.state.option4}</li>
       </ul>
+      <span className="question-template-bottom"> <input type="checkbox" /> Mark for review </span>
+      <button className="clear-response"> Clear</button>
       </div>
     </div>
     </div>
