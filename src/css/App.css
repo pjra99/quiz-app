@@ -70,10 +70,6 @@
     padding-bottom: 40px;
 }
 
-.options {
-    position: relative;
-    left: 3.5%;
-}
 .options > li {
     list-style-type: none;
     padding: 1%;
@@ -101,6 +97,7 @@
     display: flex;
     justify-content: center;
     font-size: 20px;
+    margin-top: 50px;
 }
 .start-quiz {
     display: flex;
@@ -122,7 +119,7 @@
     bottom: 0px;
     display: flex;
     justify-content: center;
-    left:29.7%;
+    left: 30.5%;
 }
 .prev-btn {
     color: white;
@@ -162,6 +159,7 @@
   }
   .options {
     top: 20px;
+    left: 5px;
 }
 .question-template-bottom {
     top: 20px;
@@ -178,6 +176,9 @@
 }
 }
 @media only screen and (min-width: 400px){
+    .greet-user {
+        top: 10%;
+    }
     .options {
         margin-left: 40px;
     }
@@ -186,5 +187,8 @@
     }
     .clear-response {
         top: 20px;
+    }
+    .countDown {
+        width: 10px;
     }
 }
