@@ -110,7 +110,7 @@ useEffect(()=>{
     history.push({pathname: '/scorecard', state: {score: score}})
     clear()
    }
-},[seconds,minutes])
+},[seconds,minutes,history, score])
 
 function handleResponse(option_num, quesNum){
 
@@ -121,12 +121,12 @@ function handleResponse(option_num, quesNum){
   document.getElementById("option3").style.color="white"
   document.getElementById("option4").style.color="white"
 
-  if(score==objectLength){
+  if(score===objectLength){
     return;
   }
  var correct_option = questionsList[quesNum-1].correct_option
  
-   if(option_num===correct_option && flag==0){
+   if(option_num===correct_option && flag===0){
         setScore(score+1)
         setFlag(1)
       }
