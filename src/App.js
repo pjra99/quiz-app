@@ -104,7 +104,7 @@ function QuestionTemplate(){
      correct_option: 1
    },
    7: {
-     ques: "Which was the first English new paper of India?",
+     ques: "Which was the first English news paper of India?",
      option1: "Hindustan Times",
      option2: "Times of India",
      option3: "Hicky's Bengal Gazette",
