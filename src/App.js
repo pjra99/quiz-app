@@ -51,7 +51,7 @@ function QuestionTemplate(){
 
   var questionsList = {
     0: {
-       ques: "Who was the first Predisent of India?",
+       ques: "Who was the first President of India?",
        option1: "Mahatma Gandhi",
        option2: "Modi",
        option3: "Rajendra Prasad",
@@ -104,7 +104,7 @@ function QuestionTemplate(){
      correct_option: 1
    },
    7: {
-     ques: "Which is the first English new paper of India?",
+     ques: "Which was the first English new paper of India?",
      option1: "Hindustan Times",
      option2: "Times of India",
      option3: "Hicky's Bengal Gazette",
