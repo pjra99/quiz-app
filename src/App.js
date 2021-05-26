@@ -53,7 +53,7 @@ function QuestionTemplate(){
     0: {
        ques: "Who was the first Predisent of India?",
        option1: "Mahatma Gandhi",
-       option2: "Chandrashekhar Azad",
+       option2: "Modi",
        option3: "Rajendra Prasad",
        option4: "Jawarhar Lal Nehru",
        correct_option: 3
@@ -78,6 +78,54 @@ function QuestionTemplate(){
    option3: "Jeff Bezos",
    option4: "Jack Ma" ,
    correct_option: 2
+   },
+   4: {
+     ques: "Who was the founder of JAVA?",
+     option1: "Mool Chand Ji",
+     option2: "Daniel Weber",
+     option3: "Guido van Rossum",
+     option4: "James Gosling",
+     correct_option: 4
+   },
+   5: {
+     ques: "Which is the hottest Planet?",
+     option1: "Venus",
+     option2: "Mercury",
+     option3: "Mars",
+     option4: "Jupitor",
+     correct_option: 1
+   },
+   6: {
+     ques: "Who is the current CEO of Github?",
+     option1:"Nat Friedman",
+     option2: "Chris Wanstrath",
+     option3: "Rajnath Singh",
+     option4: "Alison Tyler",
+     correct_option: 1
+   },
+   7: {
+     ques: "Which is the first English new paper of India?",
+     option1: "Hindustan Times",
+     option2: "Times of India",
+     option3: "Hicky's Bengal Gazette",
+     option4: "Amar Ujala",
+     correct_option: 3
+   },
+   8: {
+     ques: "Which was the first ever movie released in India?",
+     option1: "Mugle Azam",
+     option2: "Tere Naam",
+     option3: "Angoor",
+     option4: "Raja Harishchandra",
+     correct_option: 4
+   },
+   9: {
+     ques: "\"East or west Web Developers are the best.\"",
+     option1: "Hell Yes!",
+     option2: "I think yes",
+     option3: "They are quite good",
+     option4: "I am not sure",
+     correct_option: 1
    }
    }
    var objectLength = Object.keys(questionsList).length
@@ -85,7 +133,10 @@ function QuestionTemplate(){
 const [score, setScore] = useState(0)
 const [flag, setFlag] = useState(0)
 const [seconds, setSeconds] = useState(59);
-const [minutes, setMinutes] = useState(0);
+const [minutes, setMinutes] = useState(1);
+
+const [index, setIndex] = useState(0)
+const noOfQuestions = 10;
 
 const id =React.useRef(null);
 const clear=()=>{
@@ -105,7 +156,7 @@ useEffect(()=>{
     setMinutes(minutes-1)
     setSeconds(59)
    }
-   if(minutes===0 && seconds===0){
+   if(minutes===0 && seconds===-1){
     alert("Time's Up!");
     history.push({pathname: '/scorecard', state: {score: score}})
     clear()
@@ -165,12 +216,6 @@ function handleResponse(option_num, quesNum){
   }
 }
 
-
-
-const [index, setIndex] = useState(0)
-const noOfQuestions = 4;
-
-
 var ar = []
 var j = 1
 for(var i=0; i<noOfQuestions; i++){
@@ -183,6 +228,9 @@ function handleClick(i){
    setScore(score)
   setFlag(0)
 
+  if(history.location.state.quesNum === noOfQuestions){
+    return;
+  }
   document.getElementById("option1").style.color="white"
   document.getElementById("option2").style.color="white"
   document.getElementById("option3").style.color="white"
@@ -201,7 +249,6 @@ function handleClick(i){
                 correct_option: questionsList[i].correct_option
               }
               })
-              document.getElementsByClassName("option").checked = false;
 
 }
 
@@ -209,7 +256,7 @@ function handleClick(i){
   return(
     <div className="question-template">
       <div className="row ">
-        <div className="col-md-2"><span className="ques-num">{history.location.state.quesNum}/4</span></div>
+        <div className="col-md-2"><span className="ques-num">{history.location.state.quesNum}/{noOfQuestions}</span></div>
       <div className="col-md-8 question-statement">  {history.location.state.question}</div>
       <div className="col-md-2"><span className="countDown">{minutes}:{seconds%10===seconds?<span>0{seconds}</span>:<span>{seconds}</span>}</span></div>
         </div>
@@ -271,7 +318,7 @@ function GreetUser(){
 function ScoreCard(){
   const history = useHistory();
   return(
-    <div>
+    <div className="score-card-template">
       <div  className="score">Your score is {history.location.state.score} </div>
       <div className="reset-btn-section"><button className="reset-quiz-btn" onClick={()=>history.push({pathname: '/'})}>Restart Quiz</button></div>
     </div>

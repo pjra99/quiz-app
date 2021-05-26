@@ -10,6 +10,9 @@
     background-color: #5F37D8;
     padding: 10px;
 }
+.header-left-col, .header-right-col {
+    color: #5F37D8;
+}
 .questions-palette {
     position: relative;
     top: 10px;
@@ -205,9 +208,20 @@
     justify-content: center;
     font-size: 2em;
     padding: 1em;
+ 
+}
+.score-card-template {
+    position: relative;
+    top: 20%;
 }
 .reset-btn-section{
     display: flex;
     justify-content: center;
-    color: black;
 } 
+.reset-quiz-btn {
+    background: none;
+    border: 2px solid #107EEB;
+    font-size: 15px;
+    padding: 1%;
+    border-radius: 5px;
+}
