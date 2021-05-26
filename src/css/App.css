@@ -82,6 +82,10 @@
     border-radius: 3px;
     font-size: 15px;
 }
+.options > li > button {
+    background: none;
+    border: none;
+}
 .question-template-bottom {
     font-size: 13px;
     position: relative;
@@ -142,7 +146,7 @@
     bottom: 0px;
     display: flex;
     justify-content: center;
-    left:33%;
+    left: 35%;
     }
 }
 @media only screen and (max-width: 991px){
@@ -160,6 +164,7 @@
       width: 150px;
       margin-left: 20px;
   }
+
   .options {
     top: 20px;
     margin-left: 20px;
@@ -175,7 +180,7 @@
     bottom: 0px;
      
     font-size: 10px;
-    left:-19px;
+    right: 35%;
 }
 }
 @media only screen and (max-width: 400px){
@@ -195,3 +200,14 @@
         width: 10px;
     }
 }
+.score {
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+    padding: 1em;
+}
+.reset-btn-section{
+    display: flex;
+    justify-content: center;
+    color: black;
+} 
