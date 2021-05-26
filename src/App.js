@@ -298,7 +298,7 @@ function GreetUser(){
       pathname: '/questiontemplate',
       state: {
         quesNum: 1,
-        question: "Who was the first Predisent of India?",
+        question: "Who was the first President of India?",
         option1: "Mahatma Gandhi",
         option2: "Chandrashekhar Azad",
         option3: "Rajendra Prasad",
