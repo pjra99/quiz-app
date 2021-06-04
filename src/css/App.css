@@ -129,7 +129,7 @@
     bottom: 0px;
     display: flex;
     justify-content: center;
-    left: 30.5%;
+    left: 28.5%;
 }
 .prev-btn {
     color: white;
@@ -149,7 +149,7 @@
     bottom: 0px;
     display: flex;
     justify-content: center;
-    left: 35%;
+    left: 33%;
     }
 }
 @media only screen and (max-width: 991px){

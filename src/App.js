@@ -48,7 +48,7 @@ function App() {
 }
 function QuestionTemplate(){
   const history = useHistory(); 
-
+  
   var questionsList = {
     0: {
        ques: "Who was the first President of India?",
@@ -104,7 +104,7 @@ function QuestionTemplate(){
      correct_option: 1
    },
    7: {
-     ques: "Which was the first English new paper of India?",
+     ques: "Which was the first English news paper of India?",
      option1: "Hindustan Times",
      option2: "Times of India",
      option3: "Hicky's Bengal Gazette",
@@ -128,22 +128,27 @@ function QuestionTemplate(){
      correct_option: 1
    }
    }
+      
    var objectLength = Object.keys(questionsList).length
 
 const [score, setScore] = useState(0)
 const [flag, setFlag] = useState(0)
-const [seconds, setSeconds] = useState(59);
-const [minutes, setMinutes] = useState(1);
-
+const [seconds, setSeconds] = useState(59)
+const [minutes, setMinutes] = useState(9)
+var [isAnswered, setIsAnswered] = useState([])
+var noOfQuestions = 10;
 const [index, setIndex] = useState(0)
-const noOfQuestions = 10;
 
 const id =React.useRef(null);
 const clear=()=>{
 window.clearInterval(id.current)
 }
 useEffect(()=>{
-
+  let ques_status = []
+  for(let i = 0; i<10; i++){
+      ques_status[i] = false;
+  }
+  setIsAnswered(ques_status)
     id.current=window.setInterval(()=>{
       setSeconds((time)=>time-1)
     },1000)
@@ -161,11 +166,13 @@ useEffect(()=>{
     history.push({pathname: '/scorecard', state: {score: score}})
     clear()
    }
-},[seconds,minutes,history, score])
+},[seconds,minutes,history,score])
 
 function handleResponse(option_num, quesNum){
-
-  console.log(objectLength)
+  if(isAnswered[quesNum-1]===true) {
+    alert("This question is already answered!")
+    return;
+  }
 
   document.getElementById("option1").style.color="white"
   document.getElementById("option2").style.color="white"
@@ -188,7 +195,6 @@ function handleResponse(option_num, quesNum){
           setScore(score-1)
           setFlag(0)
         }
-
   }
   if(option_num===2) {
        document.getElementById("option2").style.color="yellow"
@@ -224,10 +230,14 @@ for(var i=0; i<noOfQuestions; i++){
   j++;
 }
 
-function handleClick(i){
+function handleClick(i, click_status){
    setScore(score)
   setFlag(0)
-
+   if(click_status===1){
+    let newArr = [...isAnswered]; 
+    newArr[i-1] = true; 
+    setIsAnswered(newArr)
+   }
   if(history.location.state.quesNum === noOfQuestions){
     return;
   }
@@ -275,10 +285,10 @@ function handleClick(i){
     </div>
     <div className="row navigation-buttons footer">
            <div className="col-md-3"></div>
-   {/* <div className="col-md-2"> */}
-     {/* <button onClick={()=>handleClick(index-1<0?index: index-1)}> Prev</button> */}
-     {/* </div> */}
-   <div className="col-md-2"><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1)}>Next</button></div>
+    <div className="col-md-2">
+      <button onClick={()=>handleClick(index-1<0?index: index-1,-1)}> Prev</button>
+      </div>
+   <div className="col-md-2"><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
    <div className="col-md-2"></div>
    <div className="col-md-2"><button onClick={()=>history.push({pathname: '/greetuser'})} >Abort</button></div>
    <div className="col-md-1"></div>
