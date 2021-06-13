@@ -135,7 +135,8 @@ const [score, setScore] = useState(0)
 const [flag, setFlag] = useState(0)
 const [seconds, setSeconds] = useState(59)
 const [minutes, setMinutes] = useState(9)
-var [isAnswered, setIsAnswered] = useState([])
+var [response, setResponse] = useState([])
+var [currentResponse, setCurrentResponse] = useState()
 var noOfQuestions = 10;
 const [index, setIndex] = useState(0)
 
@@ -144,11 +145,11 @@ const clear=()=>{
 window.clearInterval(id.current)
 }
 useEffect(()=>{
-  let ques_status = []
+  let resp = []
   for(let i = 0; i<10; i++){
-      ques_status[i] = false;
+      resp[i] = 0;
   }
-  setIsAnswered(ques_status)
+  setResponse(resp)
     id.current=window.setInterval(()=>{
       setSeconds((time)=>time-1)
     },1000)
@@ -169,15 +170,21 @@ useEffect(()=>{
 },[seconds,minutes,history,score])
 
 function handleResponse(option_num, quesNum){
-  if(isAnswered[quesNum-1]===true) {
+  
+  if(response[quesNum-1] > 0) {
     alert("This question is already answered!")
     return;
   }
-
+  
+    setCurrentResponse(option_num)
   document.getElementById("option1").style.color="white"
   document.getElementById("option2").style.color="white"
   document.getElementById("option3").style.color="white"
   document.getElementById("option4").style.color="white"
+  document.getElementById("option1").style.borderColor="#107EEB"
+  document.getElementById("option2").style.borderColor="#107EEB"
+  document.getElementById("option3").style.borderColor="#107EEB"
+  document.getElementById("option4").style.borderColor="#107EEB"
 
   if(score===objectLength){
     return;
@@ -190,7 +197,7 @@ function handleResponse(option_num, quesNum){
       }
   if(option_num===1) {
        document.getElementById("option1").style.color="yellow"
-
+       document.getElementById("option1").style.borderColor="yellow"
         if(flag===1){
           setScore(score-1)
           setFlag(0)
@@ -198,6 +205,7 @@ function handleResponse(option_num, quesNum){
   }
   if(option_num===2) {
        document.getElementById("option2").style.color="yellow"
+       document.getElementById("option2").style.borderColor="yellow"
 
   
         if(flag===1){
@@ -207,6 +215,7 @@ function handleResponse(option_num, quesNum){
   }
   if(option_num===3) {
        document.getElementById("option3").style.color="yellow"
+       document.getElementById("option3").style.borderColor="yellow"
     
         if(flag===1){
           setScore(score-1)
@@ -215,6 +224,7 @@ function handleResponse(option_num, quesNum){
   }
   if(option_num===4) {
        document.getElementById("option4").style.color="yellow"
+       document.getElementById("option4").style.borderColor="yellow"
         if(flag===1){
           setScore(score-1)
           setFlag(0)
@@ -231,21 +241,51 @@ for(var i=0; i<noOfQuestions; i++){
 }
 
 function handleClick(i, click_status){
+  
    setScore(score)
   setFlag(0)
    if(click_status===1){
-    let newArr = [...isAnswered]; 
-    newArr[i-1] = true; 
-    setIsAnswered(newArr)
+    let newAr = [...response];
+    let current_resp = currentResponse
+      newAr[i-1] = current_resp;
+      setResponse(newAr);
    }
+   if(click_status===-1){
+     if(response[i]===0){
+      
+     }
+    if(response[i]===1){
+      document.getElementById("option1").style.color="yellow"
+       document.getElementById("option1").style.borderColor="yellow"
+         }
+         if(response[i]===2){
+          document.getElementById("option2").style.color="yellow"
+       document.getElementById("option2").style.borderColor="yellow"
+        }
+        if(response[i]===3){
+          document.getElementById("option3").style.color="yellow"
+       document.getElementById("option3").style.borderColor="yellow"
+        }
+        if(response[i]===4){
+          document.getElementById("option4").style.color="yellow"
+       document.getElementById("option4").style.borderColor="yellow"
+        }
+   }
+
   if(history.location.state.quesNum === noOfQuestions){
     return;
   }
+ else {
   document.getElementById("option1").style.color="white"
   document.getElementById("option2").style.color="white"
   document.getElementById("option3").style.color="white"
   document.getElementById("option4").style.color="white"
+  document.getElementById("option1").style.borderColor="#107EEB"
+  document.getElementById("option2").style.borderColor="#107EEB"
+  document.getElementById("option3").style.borderColor="#107EEB"
+  document.getElementById("option4").style.borderColor="#107EEB"
   setIndex(i)
+ }
 
  history.push({
               pathname: '/questiontemplate',
@@ -274,10 +314,10 @@ function handleClick(i, click_status){
         <div className="col-md-3"> </div>
       <div className="col-md-9 option-section"> 
        <ul className="options">
-        <li><button id="option1" onMouseDown={()=>handleResponse(1, history.location.state.quesNum)}>{history.location.state.option1}</button></li>
-        <li><button id="option2" onMouseDown={()=>handleResponse(2, history.location.state.quesNum)}>{history.location.state.option2}</button></li>
-        <li><button id="option3" onMouseDown={()=>handleResponse(3, history.location.state.quesNum)}>{history.location.state.option3}</button></li>
-        <li><button id="option4" onMouseDown={()=>handleResponse(4, history.location.state.quesNum)}>{history.location.state.option4}</button></li>
+        <li id="option1" onMouseDown={()=>handleResponse(1, history.location.state.quesNum)}>{history.location.state.option1}</li>
+        <li id="option2" onMouseDown={()=>handleResponse(2, history.location.state.quesNum)}>{history.location.state.option2}</li>
+        <li id="option3" onMouseDown={()=>handleResponse(3, history.location.state.quesNum)}>{history.location.state.option3}</li>
+        <li id="option4" onMouseDown={()=>handleResponse(4, history.location.state.quesNum)}>{history.location.state.option4}</li>
       </ul>
       {/* <span className="question-template-bottom"></span>
       <button className="clear-response"> </button> */}
@@ -286,7 +326,7 @@ function handleClick(i, click_status){
     <div className="row navigation-buttons footer">
            <div className="col-md-3"></div>
     <div className="col-md-2">
-      <button onClick={()=>handleClick(index-1<0?index: index-1,-1)}> Prev</button>
+      {/* <button onClick={()=>handleClick(index-1<0?index: index-1,-1)}> Prev</button> */}
       </div>
    <div className="col-md-2"><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
    <div className="col-md-2"></div>
