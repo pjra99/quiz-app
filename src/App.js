@@ -134,7 +134,7 @@ function QuestionTemplate(){
 const [score, setScore] = useState(0)
 const [flag, setFlag] = useState(0)
 const [seconds, setSeconds] = useState(59)
-const [minutes, setMinutes] = useState(9)
+const [minutes, setMinutes] = useState(1)
 var [response, setResponse] = useState([])
 var [currentResponse, setCurrentResponse] = useState()
 var noOfQuestions = 10;
@@ -326,7 +326,7 @@ function handleClick(i, click_status){
     <div className="row navigation-buttons footer">
            <div className="col-md-3"></div>
     <div className="col-md-2">
-      {/* <button onClick={()=>handleClick(index-1<0?index: index-1,-1)}> Prev</button> */}
+      <button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button>
       </div>
    <div className="col-md-2"><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
    <div className="col-md-2"></div>
