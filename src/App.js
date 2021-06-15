@@ -134,7 +134,7 @@ function QuestionTemplate(){
 const [score, setScore] = useState(0)
 const [flag, setFlag] = useState(0)
 const [seconds, setSeconds] = useState(59)
-const [minutes, setMinutes] = useState(1)
+const [minutes, setMinutes] = useState(9)
 var [response, setResponse] = useState([])
 var [currentResponse, setCurrentResponse] = useState()
 var noOfQuestions = 10;
@@ -177,10 +177,10 @@ function handleResponse(option_num, quesNum){
   }
   
     setCurrentResponse(option_num)
-  document.getElementById("option1").style.color="white"
-  document.getElementById("option2").style.color="white"
-  document.getElementById("option3").style.color="white"
-  document.getElementById("option4").style.color="white"
+  // document.getElementById("option1").style.color="white"
+  // document.getElementById("option2").style.color="white"
+  // document.getElementById("option3").style.color="white"
+  // document.getElementById("option4").style.color="white"
   document.getElementById("option1").style.borderColor="#107EEB"
   document.getElementById("option2").style.borderColor="#107EEB"
   document.getElementById("option3").style.borderColor="#107EEB"
@@ -196,16 +196,16 @@ function handleResponse(option_num, quesNum){
         setFlag(1)
       }
   if(option_num===1) {
-       document.getElementById("option1").style.color="yellow"
-       document.getElementById("option1").style.borderColor="yellow"
+      //  document.getElementById("option1").style.color="#74db4b"
+       document.getElementById("option1").style.borderColor="#74db4b"
         if(flag===1){
           setScore(score-1)
           setFlag(0)
         }
   }
   if(option_num===2) {
-       document.getElementById("option2").style.color="yellow"
-       document.getElementById("option2").style.borderColor="yellow"
+      //  document.getElementById("option2").style.color="#74db4b"
+       document.getElementById("option2").style.borderColor="#74db4b"
 
   
         if(flag===1){
@@ -214,8 +214,8 @@ function handleResponse(option_num, quesNum){
         }
   }
   if(option_num===3) {
-       document.getElementById("option3").style.color="yellow"
-       document.getElementById("option3").style.borderColor="yellow"
+      //  document.getElementById("option3").style.color="#74db4b"
+       document.getElementById("option3").style.borderColor="#74db4b"
     
         if(flag===1){
           setScore(score-1)
@@ -223,8 +223,8 @@ function handleResponse(option_num, quesNum){
         }
   }
   if(option_num===4) {
-       document.getElementById("option4").style.color="yellow"
-       document.getElementById("option4").style.borderColor="yellow"
+      //  document.getElementById("option4").style.color="#74db4b"
+       document.getElementById("option4").style.borderColor="#74db4b"
         if(flag===1){
           setScore(score-1)
           setFlag(0)
@@ -255,20 +255,20 @@ function handleClick(i, click_status){
       
      }
     if(response[i]===1){
-      document.getElementById("option1").style.color="yellow"
-       document.getElementById("option1").style.borderColor="yellow"
+      // document.getElementById("option1").style.color="#74db4b"
+       document.getElementById("option1").style.borderColor="#74db4b"
          }
          if(response[i]===2){
-          document.getElementById("option2").style.color="yellow"
-       document.getElementById("option2").style.borderColor="yellow"
+          // document.getElementById("option2").style.color="#74db4b"
+       document.getElementById("option2").style.borderColor="#74db4b"
         }
         if(response[i]===3){
-          document.getElementById("option3").style.color="yellow"
-       document.getElementById("option3").style.borderColor="yellow"
+          // document.getElementById("option3").style.color="#74db4b"
+       document.getElementById("option3").style.borderColor="#74db4b"
         }
         if(response[i]===4){
-          document.getElementById("option4").style.color="yellow"
-       document.getElementById("option4").style.borderColor="yellow"
+          // document.getElementById("option4").style.color="#74db4b"
+       document.getElementById("option4").style.borderColor="#74db4b"
         }
    }
 
@@ -276,10 +276,10 @@ function handleClick(i, click_status){
     return;
   }
  else {
-  document.getElementById("option1").style.color="white"
-  document.getElementById("option2").style.color="white"
-  document.getElementById("option3").style.color="white"
-  document.getElementById("option4").style.color="white"
+  // document.getElementById("option1").style.color="white"
+  // document.getElementById("option2").style.color="white"
+  // document.getElementById("option3").style.color="white"
+  // document.getElementById("option4").style.color="white"
   document.getElementById("option1").style.borderColor="#107EEB"
   document.getElementById("option2").style.borderColor="#107EEB"
   document.getElementById("option3").style.borderColor="#107EEB"
@@ -314,10 +314,10 @@ function handleClick(i, click_status){
         <div className="col-md-3"> </div>
       <div className="col-md-9 option-section"> 
        <ul className="options">
-        <li id="option1" onMouseDown={()=>handleResponse(1, history.location.state.quesNum)}>{history.location.state.option1}</li>
-        <li id="option2" onMouseDown={()=>handleResponse(2, history.location.state.quesNum)}>{history.location.state.option2}</li>
-        <li id="option3" onMouseDown={()=>handleResponse(3, history.location.state.quesNum)}>{history.location.state.option3}</li>
-        <li id="option4" onMouseDown={()=>handleResponse(4, history.location.state.quesNum)}>{history.location.state.option4}</li>
+        <li id="option1" onMouseDown={()=>handleResponse(1, history.location.state.quesNum)}>A. {history.location.state.option1}</li>
+        <li id="option2" onMouseDown={()=>handleResponse(2, history.location.state.quesNum)}>B. {history.location.state.option2}</li>
+        <li id="option3" onMouseDown={()=>handleResponse(3, history.location.state.quesNum)}>C. {history.location.state.option3}</li>
+        <li id="option4" onMouseDown={()=>handleResponse(4, history.location.state.quesNum)}>D. {history.location.state.option4}</li>
       </ul>
       {/* <span className="question-template-bottom"></span>
       <button className="clear-response"> </button> */}
@@ -326,7 +326,7 @@ function handleClick(i, click_status){
     <div className="row navigation-buttons footer">
            <div className="col-md-3"></div>
     <div className="col-md-2">
-      <button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button>
+      {/* <button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button> */}
       </div>
    <div className="col-md-2"><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
    <div className="col-md-2"></div>
