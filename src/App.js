@@ -324,17 +324,10 @@ function handleClick(i, click_status){
       </div>
     </div>
     <div className="row navigation-buttons footer">
-           <div className="col-md-3"></div>
-    <div className="col-md-2">
-      {/* <button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button> */}
-      </div>
-   <div className="col-md-2"><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
-   <div className="col-md-2"></div>
-   <div className="col-md-2"><button onClick={()=>history.push({pathname: '/greetuser'})} >Abort</button></div>
-   <div className="col-md-1"></div>
-   <div className="col-md-2"><button onClick={()=>history.push({pathname: './scorecard', state: {
-     score: score
-   }})}>Submit</button></div>
+          <div><button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button></div>
+   <div><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
+   <div><button onClick={()=>history.push({pathname: '/greetuser'})} >Abort</button></div>
+   <div><button onClick={()=>history.push({pathname: './scorecard', state: {  score: score }})}>Submit</button></div>
          </div>
     </div>
   )
