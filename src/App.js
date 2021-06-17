@@ -137,6 +137,7 @@ const [seconds, setSeconds] = useState(30)
 const [minutes, setMinutes] = useState(1)
 var [response, setResponse] = useState([])
 var [currentResponse, setCurrentResponse] = useState()
+var [isAnswered, setIsAnswered] = useState(0);
 var noOfQuestions = 10;
 const [index, setIndex] = useState(0)
 
@@ -175,8 +176,8 @@ function handleResponse(option_num, quesNum){
     alert("This question is already answered!")
     return;
   }
-  
-    setCurrentResponse(option_num)
+    setIsAnswered(1)
+//     setCurrentResponse(option_num)
   // document.getElementById("option1").style.color="white"
   // document.getElementById("option2").style.color="white"
   // document.getElementById("option3").style.color="white"
@@ -245,31 +246,36 @@ function handleClick(i, click_status){
    setScore(score)
   setFlag(0)
    if(click_status===1){
-    let newAr = [...response];
-    let current_resp = currentResponse
-      newAr[i-1] = current_resp;
+     if(isAnswered===1){
+      let newAr = [...response];
+      newAr[i-1] = 1;
       setResponse(newAr);
+      setIsAnswered(0)
+    } 
    }
    if(click_status===-1){
-     if(response[i]===0){
-      
-     }
-    if(response[i]===1){
-      // document.getElementById("option1").style.color="#74db4b"
-       document.getElementById("option1").style.borderColor="#74db4b"
-         }
-         if(response[i]===2){
-          // document.getElementById("option2").style.color="#74db4b"
-       document.getElementById("option2").style.borderColor="#74db4b"
-        }
-        if(response[i]===3){
-          // document.getElementById("option3").style.color="#74db4b"
-       document.getElementById("option3").style.borderColor="#74db4b"
-        }
-        if(response[i]===4){
-          // document.getElementById("option4").style.color="#74db4b"
-       document.getElementById("option4").style.borderColor="#74db4b"
-        }
+    if(isAnswered===1){
+      let newAr = [...response];
+      newAr[i-1] = 1;
+      setResponse(newAr);
+      setIsAnswered(0)
+    } 
+//     if(response[i]===1){
+//       // document.getElementById("option1").style.color="#74db4b"
+//        document.getElementById("option1").style.borderColor="#74db4b"
+//          }
+//          if(response[i]===2){
+//           // document.getElementById("option2").style.color="#74db4b"
+//        document.getElementById("option2").style.borderColor="#74db4b"
+//         }
+//         if(response[i]===3){
+//           // document.getElementById("option3").style.color="#74db4b"
+//        document.getElementById("option3").style.borderColor="#74db4b"
+//         }
+//         if(response[i]===4){
+//           // document.getElementById("option4").style.color="#74db4b"
+//        document.getElementById("option4").style.borderColor="#74db4b"
+//         }
    }
 
   if(history.location.state.quesNum === noOfQuestions){
