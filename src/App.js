@@ -136,7 +136,7 @@ const [flag, setFlag] = useState(0)
 const [seconds, setSeconds] = useState(30)
 const [minutes, setMinutes] = useState(1)
 var [response, setResponse] = useState([])
-var [currentResponse, setCurrentResponse] = useState()
+var [isAnswered, setIsAnswered] = useState()
 var noOfQuestions = 10;
 const [index, setIndex] = useState(0)
 
@@ -171,16 +171,12 @@ useEffect(()=>{
 
 function handleResponse(option_num, quesNum){
   
-  if(response[quesNum-1] > 0) {
+  if(response[quesNum-1] !== 0) {
     alert("This question is already answered!")
     return;
   }
   
-    setCurrentResponse(option_num)
-  // document.getElementById("option1").style.color="white"
-  // document.getElementById("option2").style.color="white"
-  // document.getElementById("option3").style.color="white"
-  // document.getElementById("option4").style.color="white"
+    setIsAnswered(option_num)
   document.getElementById("option1").style.borderColor="#107EEB"
   document.getElementById("option2").style.borderColor="#107EEB"
   document.getElementById("option3").style.borderColor="#107EEB"
@@ -190,13 +186,13 @@ function handleResponse(option_num, quesNum){
     return;
   }
  var correct_option = questionsList[quesNum-1].correct_option
+ setIsAnswered(1)
  
    if(option_num===correct_option && flag===0){
         setScore(score+1)
         setFlag(1)
       }
   if(option_num===1) {
-      //  document.getElementById("option1").style.color="#74db4b"
        document.getElementById("option1").style.borderColor="#74db4b"
         if(flag===1){
           setScore(score-1)
@@ -204,7 +200,6 @@ function handleResponse(option_num, quesNum){
         }
   }
   if(option_num===2) {
-      //  document.getElementById("option2").style.color="#74db4b"
        document.getElementById("option2").style.borderColor="#74db4b"
 
   
@@ -214,7 +209,6 @@ function handleResponse(option_num, quesNum){
         }
   }
   if(option_num===3) {
-      //  document.getElementById("option3").style.color="#74db4b"
        document.getElementById("option3").style.borderColor="#74db4b"
     
         if(flag===1){
@@ -223,7 +217,6 @@ function handleResponse(option_num, quesNum){
         }
   }
   if(option_num===4) {
-      //  document.getElementById("option4").style.color="#74db4b"
        document.getElementById("option4").style.borderColor="#74db4b"
         if(flag===1){
           setScore(score-1)
@@ -241,45 +234,23 @@ for(var i=0; i<noOfQuestions; i++){
 }
 
 function handleClick(i, click_status){
-  
    setScore(score)
   setFlag(0)
-   if(click_status===1){
-    let newAr = [...response];
-    let current_resp = currentResponse
-      newAr[i-1] = current_resp;
+  if(i===9){
+    console.log(i)
+  }
+   
+    if(isAnswered===1){
+      let newAr = [...response];
+      newAr[click_status===1?i-1:i+1] = 1;
       setResponse(newAr);
-   }
-   if(click_status===-1){
-     if(response[i]===0){
-      
-     }
-    if(response[i]===1){
-      // document.getElementById("option1").style.color="#74db4b"
-       document.getElementById("option1").style.borderColor="#74db4b"
-         }
-         if(response[i]===2){
-          // document.getElementById("option2").style.color="#74db4b"
-       document.getElementById("option2").style.borderColor="#74db4b"
-        }
-        if(response[i]===3){
-          // document.getElementById("option3").style.color="#74db4b"
-       document.getElementById("option3").style.borderColor="#74db4b"
-        }
-        if(response[i]===4){
-          // document.getElementById("option4").style.color="#74db4b"
-       document.getElementById("option4").style.borderColor="#74db4b"
-        }
-   }
-
-  if(history.location.state.quesNum === noOfQuestions){
+      setIsAnswered(0)
+    } 
+    
+  if(history.location.state.quesNum === noOfQuestions && click_status===1){
     return;
   }
  else {
-  // document.getElementById("option1").style.color="white"
-  // document.getElementById("option2").style.color="white"
-  // document.getElementById("option3").style.color="white"
-  // document.getElementById("option4").style.color="white"
   document.getElementById("option1").style.borderColor="#107EEB"
   document.getElementById("option2").style.borderColor="#107EEB"
   document.getElementById("option3").style.borderColor="#107EEB"
@@ -299,7 +270,6 @@ function handleClick(i, click_status){
                 correct_option: questionsList[i].correct_option
               }
               })
-
 }
 
 
@@ -324,18 +294,11 @@ function handleClick(i, click_status){
       </div>
     </div>
     <div className="row navigation-buttons footer">
-           <div className="col-md-3"></div>
-    <div className="col-md-2">
-      {/* <button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button> */}
-      </div>
-   <div className="col-md-2"><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
-   <div className="col-md-2"></div>
-   <div className="col-md-2"><button onClick={()=>history.push({pathname: '/greetuser'})} >Abort</button></div>
-   <div className="col-md-1"></div>
-   <div className="col-md-2"><button onClick={()=>history.push({pathname: './scorecard', state: {
-     score: score
-   }})}>Submit</button></div>
-         </div>
+    <div><button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button></div>
+   <div><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
+   <div><button onClick={()=>history.push({pathname: '/greetuser'})} >Abort</button></div>
+   <div><button onClick={()=>history.push({pathname: './scorecard', state: {  score: score }})}>Submit</button></div>
+     </div>
     </div>
   )
 }
