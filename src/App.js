@@ -136,12 +136,7 @@ const [flag, setFlag] = useState(0)
 const [seconds, setSeconds] = useState(30)
 const [minutes, setMinutes] = useState(1)
 var [response, setResponse] = useState([])
-<<<<<<< HEAD
 var [isAnswered, setIsAnswered] = useState()
-=======
-var [currentResponse, setCurrentResponse] = useState()
-var [isAnswered, setIsAnswered] = useState(0);
->>>>>>> c874fa454ab507cd54c1ca2deda5e0e65149fceb
 var noOfQuestions = 10;
 const [index, setIndex] = useState(0)
 
@@ -180,17 +175,8 @@ function handleResponse(option_num, quesNum){
     alert("This question is already answered!")
     return;
   }
-<<<<<<< HEAD
   
     setIsAnswered(option_num)
-=======
-    setIsAnswered(1)
-//     setCurrentResponse(option_num)
-  // document.getElementById("option1").style.color="white"
-  // document.getElementById("option2").style.color="white"
-  // document.getElementById("option3").style.color="white"
-  // document.getElementById("option4").style.color="white"
->>>>>>> c874fa454ab507cd54c1ca2deda5e0e65149fceb
   document.getElementById("option1").style.borderColor="#107EEB"
   document.getElementById("option2").style.borderColor="#107EEB"
   document.getElementById("option3").style.borderColor="#107EEB"
@@ -250,7 +236,6 @@ for(var i=0; i<noOfQuestions; i++){
 function handleClick(i, click_status){
    setScore(score)
   setFlag(0)
-<<<<<<< HEAD
   if(i===9){
     console.log(i)
   }
@@ -263,42 +248,6 @@ function handleClick(i, click_status){
     } 
     
   if(history.location.state.quesNum === noOfQuestions && click_status===1){
-=======
-   if(click_status===1){
-     if(isAnswered===1){
-      let newAr = [...response];
-      newAr[i-1] = 1;
-      setResponse(newAr);
-      setIsAnswered(0)
-    } 
-   }
-   if(click_status===-1){
-    if(isAnswered===1){
-      let newAr = [...response];
-      newAr[i-1] = 1;
-      setResponse(newAr);
-      setIsAnswered(0)
-    } 
-//     if(response[i]===1){
-//       // document.getElementById("option1").style.color="#74db4b"
-//        document.getElementById("option1").style.borderColor="#74db4b"
-//          }
-//          if(response[i]===2){
-//           // document.getElementById("option2").style.color="#74db4b"
-//        document.getElementById("option2").style.borderColor="#74db4b"
-//         }
-//         if(response[i]===3){
-//           // document.getElementById("option3").style.color="#74db4b"
-//        document.getElementById("option3").style.borderColor="#74db4b"
-//         }
-//         if(response[i]===4){
-//           // document.getElementById("option4").style.color="#74db4b"
-//        document.getElementById("option4").style.borderColor="#74db4b"
-//         }
-   }
-
-  if(history.location.state.quesNum === noOfQuestions){
->>>>>>> c874fa454ab507cd54c1ca2deda5e0e65149fceb
     return;
   }
  else {
@@ -345,19 +294,11 @@ function handleClick(i, click_status){
       </div>
     </div>
     <div className="row navigation-buttons footer">
-<<<<<<< HEAD
     <div><button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button></div>
    <div><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
    <div><button onClick={()=>history.push({pathname: '/greetuser'})} >Abort</button></div>
-   <div><button onClick={()=>history.push({pathname: './scorecard', state: {  score: score }})}>Submit</button></div>
+   <div><button onClick={()=>history.push({pathname: './scorecard', state: { score: score }})}>Submit</button></div>
      </div>
-=======
-          <div><button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button></div>
-   <div><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
-   <div><button onClick={()=>history.push({pathname: '/greetuser'})} >Abort</button></div>
-   <div><button onClick={()=>history.push({pathname: './scorecard', state: {  score: score }})}>Submit</button></div>
-         </div>
->>>>>>> c874fa454ab507cd54c1ca2deda5e0e65149fceb
     </div>
   )
 }
@@ -395,7 +336,7 @@ function ScoreCard(){
       <div className="reset-btn-section"><button className="reset-quiz-btn" onClick={()=>history.push({pathname: '/'})}>Restart Quiz</button></div>
     </div>
   )
-
 }
+
 
 export default App;
