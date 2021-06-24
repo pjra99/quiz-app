@@ -182,7 +182,7 @@ if(response[history.location.state.quesNum-1]===4) {
     history.push({pathname: '/scorecard', state: {score: score}})
     clear()
    }
-},[seconds,minutes,history,score])
+},[seconds,minutes,history,score, isChangingResp, response])
 
 
 function handleResponse(option_num, quesNum){
@@ -348,7 +348,7 @@ for(var i=0; i<noOfQuestions; i++){
         </div>
       <div className="row">
         <div className="col-md-3"> 
-        Score:{score}, Lastresp:{lastResponse}
+        {/* Score:{score}, Lastresp:{lastResponse} */}
         </div>
       <div className="col-md-9 option-section"> 
        <ul className="options">
