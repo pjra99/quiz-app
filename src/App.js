@@ -4,11 +4,7 @@ import React from "react"
 import {Switch, Route, useHistory} from "react-router-dom"
 
 function App() {
-  
-  // const questionNavigator = ar.map((q, i)=>
-  //  <div className="questionNoButton" onClick={()=>handleClick(i)}> {q} </div>
-  // )
-  
+
   return (
     <div className="App-screen container-fluid">
     <div className="row header-section">
@@ -24,7 +20,6 @@ function App() {
          </div>
          <div className="row sub-header">
         <div className="col-md-12 questions-palette">
-            {/* {questionNavigator} */}
         </div>
          </div>
          <div className="row middle-section">
@@ -133,28 +128,31 @@ function QuestionTemplate(){
 
 const [score, setScore] = useState(0)
 const [flag, setFlag] = useState(0)
-const [seconds, setSeconds] = useState(30)
-const [minutes, setMinutes] = useState(1)
+const [seconds, setSeconds] = useState(59)
+const [minutes, setMinutes] = useState(59)
 var [response, setResponse] = useState([])
 var [isAnswered, setIsAnswered] = useState()
 var noOfQuestions = 10;
 const [index, setIndex] = useState(0)
-
+const [pageIsLoaded, setPageIsLoaded] = useState(0);
 const id =React.useRef(null);
 const clear=()=>{
 window.clearInterval(id.current)
 }
 useEffect(()=>{
+ if(pageIsLoaded===0){
   let resp = []
   for(let i = 0; i<10; i++){
       resp[i] = 0;
   }
   setResponse(resp)
+  setPageIsLoaded(pageIsLoaded+1)
+ }
     id.current=window.setInterval(()=>{
       setSeconds((time)=>time-1)
     },1000)
     return ()=>clear();
-},[])
+},[pageIsLoaded])
 
  useEffect(()=>{
 
@@ -169,6 +167,7 @@ useEffect(()=>{
    }
 },[seconds,minutes,history,score])
 
+
 function handleResponse(option_num, quesNum){
   
   if(response[quesNum-1] !== 0) {
@@ -176,7 +175,7 @@ function handleResponse(option_num, quesNum){
     return;
   }
   
-    setIsAnswered(option_num)
+    setIsAnswered(1)
   document.getElementById("option1").style.borderColor="#107EEB"
   document.getElementById("option2").style.borderColor="#107EEB"
   document.getElementById("option3").style.borderColor="#107EEB"
@@ -186,42 +185,26 @@ function handleResponse(option_num, quesNum){
     return;
   }
  var correct_option = questionsList[quesNum-1].correct_option
- setIsAnswered(1)
- 
+
+    if(flag===1){
+     setScore(score-1)
+     setFlag(0)
+  }
    if(option_num===correct_option && flag===0){
         setScore(score+1)
         setFlag(1)
       }
   if(option_num===1) {
        document.getElementById("option1").style.borderColor="#74db4b"
-        if(flag===1){
-          setScore(score-1)
-          setFlag(0)
-        }
   }
   if(option_num===2) {
        document.getElementById("option2").style.borderColor="#74db4b"
-
-  
-        if(flag===1){
-          setScore(score-1)
-          setFlag(0)
-        }
   }
   if(option_num===3) {
        document.getElementById("option3").style.borderColor="#74db4b"
-    
-        if(flag===1){
-          setScore(score-1)
-          setFlag(0)
-        }
   }
   if(option_num===4) {
        document.getElementById("option4").style.borderColor="#74db4b"
-        if(flag===1){
-          setScore(score-1)
-          setFlag(0)
-        }
   }
 }
 
@@ -233,16 +216,21 @@ for(var i=0; i<noOfQuestions; i++){
   j++;
 }
 
-function handleClick(i, click_status){
+  function handleClick(i, click_status){
    setScore(score)
   setFlag(0)
   if(i===9){
     console.log(i)
   }
-   
+
     if(isAnswered===1){
       let newAr = [...response];
-      newAr[click_status===1?i-1:i+1] = 1;
+      if(click_status===1 || click_status===-1){
+        newAr[click_status===1?i-1:i+1] = 1;
+      }
+      else {
+        newAr[index] = 1;
+      }
       setResponse(newAr);
       setIsAnswered(0)
     } 
@@ -272,16 +260,23 @@ function handleClick(i, click_status){
               })
 }
 
+    const buttonForEachQuestion = ar.map((i, key)=><button className="ques-navigation-buttons" onClick={()=>handleClick(key,0)}>{i}</button>)
+  
+
 
   return(
-    <div className="question-template">
-      <div className="row ">
+    <div className="question-template row">
+<div className="col-md-8 question-template-left">
+<div className="row ">
+  This APP is under construction currently ._.
         <div className="col-md-2"><span className="ques-num">{history.location.state.quesNum}/{noOfQuestions}</span></div>
       <div className="col-md-8 question-statement">  {history.location.state.question}</div>
       <div className="col-md-2"><span className="countDown">{minutes}:{seconds%10===seconds?<span>0{seconds}</span>:<span>{seconds}</span>}</span></div>
         </div>
       <div className="row">
-        <div className="col-md-3"> </div>
+        <div className="col-md-3"> 
+        {/* Score:{score}, FLag: {flag}, index: {index} */}
+        </div>
       <div className="col-md-9 option-section"> 
        <ul className="options">
         <li id="option1" onMouseDown={()=>handleResponse(1, history.location.state.quesNum)}>A. {history.location.state.option1}</li>
@@ -289,8 +284,6 @@ function handleClick(i, click_status){
         <li id="option3" onMouseDown={()=>handleResponse(3, history.location.state.quesNum)}>C. {history.location.state.option3}</li>
         <li id="option4" onMouseDown={()=>handleResponse(4, history.location.state.quesNum)}>D. {history.location.state.option4}</li>
       </ul>
-      {/* <span className="question-template-bottom"></span>
-      <button className="clear-response"> </button> */}
       </div>
     </div>
     <div className="row navigation-buttons footer">
@@ -299,6 +292,10 @@ function handleClick(i, click_status){
    <div><button onClick={()=>history.push({pathname: '/greetuser'})} >Abort</button></div>
    <div><button onClick={()=>history.push({pathname: './scorecard', state: { score: score }})}>Submit</button></div>
      </div>
+</div>
+<div className="col-md-4 question-template-right">
+{buttonForEachQuestion}
+</div>
     </div>
   )
 }

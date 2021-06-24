@@ -66,6 +66,14 @@
     top: 10%;
     padding-bottom: 40px;
 }
+.question-template-left, .question-template-right {
+    margin-top: 3%;
+}
+.ques-navigation-buttons {
+    margin: 1%;
+    width: 50px;
+}
+
 .options {
     position: relative;
     left: 3.5%;
@@ -175,6 +183,9 @@
   .options {
     top: 20px;
     margin-left: 20px;
+}
+.question-template-right {
+    margin-top: 20%;
 }
 .question-template-bottom {
     top: 20px;
