@@ -339,43 +339,43 @@ for(var i=0; i<noOfQuestions; i++){
 
   return(
     <div className="question-template row">
-<div className="col-md-8 question-template-left">
-<div className="row ">
-  This APP is under construction currently ._.
-        <div className="col-md-2"><span className="ques-num">{history.location.state.quesNum}/{noOfQuestions}</span></div>
-      <div className="col-md-8 question-statement">  {history.location.state.question}</div>
-      <div className="col-md-2"><span className="countDown">{minutes}:{seconds%10===seconds?<span>0{seconds}</span>:<span>{seconds}</span>}</span></div>
+    <div className="col-md-8 question-template-left">
+    <div className="row ">
+      {/* This APP is under construction currently ._. */}
+            <div className="col-md-2"><span className="ques-num">{history.location.state.quesNum}/{noOfQuestions}</span></div>
+          <div className="col-md-8 question-statement">  {history.location.state.question}</div>
+          <div className="col-md-2"><span className="countDown">{minutes}:{seconds%10===seconds?<span>0{seconds}</span>:<span>{seconds}</span>}</span></div>
+            </div>
+          <div className="row">
+            <div className="col-md-3"> 
+            {/* Score:{score}, Lastresp:{lastResponse} */}
+            </div>
+          <div className="col-md-9 option-section"> 
+           <ul className="options">
+            <li id="option1" onMouseDown={()=>handleResponse(1, history.location.state.quesNum)}>A. {history.location.state.option1}</li>
+            <li id="option2" onMouseDown={()=>handleResponse(2, history.location.state.quesNum)}>B. {history.location.state.option2}</li>
+            <li id="option3" onMouseDown={()=>handleResponse(3, history.location.state.quesNum)}>C. {history.location.state.option3}</li>
+            <li id="option4" onMouseDown={()=>handleResponse(4, history.location.state.quesNum)}>D. {history.location.state.option4}</li>
+          </ul>
+          </div>
         </div>
-      <div className="row">
-        <div className="col-md-3"> 
-        {/* Score:{score}, Lastresp:{lastResponse} */}
+        <div className="row">
+          <div className="col-md-3"></div>
+          <div className="col-md-3"></div>
+          <div className="col-md-3"></div>
+          <div className="col-md-3"></div>
         </div>
-      <div className="col-md-9 option-section"> 
-       <ul className="options">
-        <li id="option1" onMouseDown={()=>handleResponse(1, history.location.state.quesNum)}>A. {history.location.state.option1}</li>
-        <li id="option2" onMouseDown={()=>handleResponse(2, history.location.state.quesNum)}>B. {history.location.state.option2}</li>
-        <li id="option3" onMouseDown={()=>handleResponse(3, history.location.state.quesNum)}>C. {history.location.state.option3}</li>
-        <li id="option4" onMouseDown={()=>handleResponse(4, history.location.state.quesNum)}>D. {history.location.state.option4}</li>
-      </ul>
-      </div>
+        <div className="row navigation-buttons footer">
+        <div><button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button></div>
+       <div><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
+       <div><button onClick={()=>history.push({pathname: '/greetuser'})} >Abort</button></div>
+       <div><button onClick={()=>history.push({pathname: './scorecard', state: { score: score }})}>Submit</button></div>
+         </div>
     </div>
-    <div className="row">
-      <div className="col-md-3"></div>
-      <div className="col-md-3">Mark for Review</div>
-      <div className="col-md-3"></div>
-      <div className="col-md-3"></div>
+    <div className="col-md-4 question-template-right">
+    {buttonForEachQuestion}
     </div>
-    <div className="row navigation-buttons footer">
-    <div><button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button></div>
-   <div><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
-   <div><button onClick={()=>history.push({pathname: '/greetuser'})} >Abort</button></div>
-   <div><button onClick={()=>history.push({pathname: './scorecard', state: { score: score }})}>Submit</button></div>
-     </div>
-</div>
-<div className="col-md-4 question-template-right">
-{buttonForEachQuestion}
-</div>
-    </div>
+        </div>
   )
 }
 

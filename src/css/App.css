@@ -74,10 +74,10 @@
     width: 50px;
 }
 
-.options {
+/* .options {
     position: relative;
     left: 3.5%;
-}
+} */
 .options > li {
     list-style-type: none;
     padding: 1%;
@@ -216,6 +216,13 @@
     }
     .countDown {
         width: 10px;
+    }
+    .question-template {
+        width: 90%;
+        left: 8.5%;
+    }
+    .options > li {
+        width: 70%;
     }
 }
 .score {
