@@ -137,7 +137,8 @@ const [index, setIndex] = useState(0)
 const [pageIsLoaded, setPageIsLoaded] = useState(0)
 const [lastResponse, setLastResponse] = useState(0)
 const [isChangingResp, setIsChangingResp] = useState(0)
-const id =React.useRef(null);
+const [questionIsChanged, setQuestionIsChanged] = useState(0)
+const id = React.useRef(null);
 const clear=()=>{
 window.clearInterval(id.current)
 }
@@ -171,6 +172,7 @@ if(response[history.location.state.quesNum-1]===3) {
 if(response[history.location.state.quesNum-1]===4) {
     document.getElementById("option4").style.borderColor="#74db4b"
 }
+setQuestionIsChanged(0)
   }
 
   if(seconds===-1){
@@ -182,7 +184,7 @@ if(response[history.location.state.quesNum-1]===4) {
     history.push({pathname: '/scorecard', state: {score: score}})
     clear()
    }
-},[seconds,minutes,history,score, isChangingResp, response])
+},[seconds,minutes,history,score, isChangingResp, response, questionIsChanged])
 
 
 function handleResponse(option_num, quesNum){
@@ -288,6 +290,7 @@ for(var i=0; i<noOfQuestions; i++){
 
 
   function handleClick(i, click_status){
+    setQuestionIsChanged(1)
    setScore(score)
   setFlag(0)
   if(i===9){
