@@ -74,16 +74,16 @@
     width: 50px;
 }
 
-/* .options {
+.options {
     position: relative;
-    left: 3.5%;
-} */
+    top: 3.5%;
+}
 .options > li {
     list-style-type: none;
     padding: 1%;
     border: 2px solid #107EEB;
     margin-top: 2%;
-    width: 50%;
+    width: 55%;
     border-radius: 3px;
     font-size: 15px;
 }
@@ -146,12 +146,12 @@
 .prev-btn {
     color: white;
 }
-.countDown {
+.count-down {
     position: relative;
     top: 22px;
     background: white;
     color: #16c79a;
-    padding: 5%;
+    padding: 8px;
     border-radius: 5px;
     font-weight: 900;
 }
@@ -176,16 +176,22 @@
       top: 20px;
   }
   .options > li {
-      width: 150px;
+      width: 70%;
       margin-left: 20px;
   }
-
+  .count-down {
+      position: fixed;
+      /* padding-right: 10px; */
+      top: 13%;
+      right: 13%;
+  }
   .options {
     top: 20px;
-    margin-left: 20px;
+    /* margin-left: 20px; */
 }
 .question-template-right {
     margin-top: 20%;
+    padding-left: 7%;
 }
 .question-template-bottom {
     top: 20px;
@@ -206,7 +212,7 @@
         top: 10%;
     }
     .options {
-        margin-left: 10px;
+        /* margin-left: 10px; */
     }
     .question-template-bottom {
         top: 20px;
@@ -214,15 +220,24 @@
     .clear-response {
         top: 20px;
     }
-    .countDown {
+    .count-down {
         width: 10px;
     }
     .question-template {
         width: 90%;
         left: 8.5%;
     }
+    .question-template-right {
+        padding-left: 8%;
+    }
     .options > li {
         width: 70%;
+    }
+    .count-down {
+        position: fixed;
+        padding-right: 40px;
+        top: 13%;
+        right: 9%;
     }
 }
 .score {

@@ -344,7 +344,7 @@ for(var i=0; i<noOfQuestions; i++){
       {/* This APP is under construction currently ._. */}
             <div className="col-md-2"><span className="ques-num">{history.location.state.quesNum}/{noOfQuestions}</span></div>
           <div className="col-md-8 question-statement">  {history.location.state.question}</div>
-          <div className="col-md-2"><span className="countDown">{minutes}:{seconds%10===seconds?<span>0{seconds}</span>:<span>{seconds}</span>}</span></div>
+          <div className="col-md-2"><span className="count-down">{minutes}:{seconds%10===seconds?<span>0{seconds}</span>:<span>{seconds}</span>}</span></div>
             </div>
           <div className="row">
             <div className="col-md-3"> 
