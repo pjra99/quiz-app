@@ -134,7 +134,9 @@ var [response, setResponse] = useState([])
 var [isAnswered, setIsAnswered] = useState()
 var noOfQuestions = 10;
 const [index, setIndex] = useState(0)
-const [pageIsLoaded, setPageIsLoaded] = useState(0);
+const [pageIsLoaded, setPageIsLoaded] = useState(0)
+const [lastResponse, setLastResponse] = useState(0)
+const [isChangingResp, setIsChangingResp] = useState(0)
 const id =React.useRef(null);
 const clear=()=>{
 window.clearInterval(id.current)
@@ -148,6 +150,7 @@ useEffect(()=>{
   setResponse(resp)
   setPageIsLoaded(pageIsLoaded+1)
  }
+ 
     id.current=window.setInterval(()=>{
       setSeconds((time)=>time-1)
     },1000)
@@ -155,13 +158,27 @@ useEffect(()=>{
 },[pageIsLoaded])
 
  useEffect(()=>{
+  if(isChangingResp===0){
+       if(response[history.location.state.quesNum-1]===1) {
+    document.getElementById("option1").style.borderColor="#74db4b"
+}
+if(response[history.location.state.quesNum-1]===2) {
+    document.getElementById("option2").style.borderColor="#74db4b"
+}
+if(response[history.location.state.quesNum-1]===3) {
+    document.getElementById("option3").style.borderColor="#74db4b"
+}
+if(response[history.location.state.quesNum-1]===4) {
+    document.getElementById("option4").style.borderColor="#74db4b"
+}
+  }
 
   if(seconds===-1){
     setMinutes(minutes-1)
     setSeconds(59)
    }
    if(minutes===0 && seconds===-1){
-    alert("Time's Up!");
+    alert("Time's Up!")
     history.push({pathname: '/scorecard', state: {score: score}})
     clear()
    }
@@ -169,44 +186,97 @@ useEffect(()=>{
 
 
 function handleResponse(option_num, quesNum){
-  
-  if(response[quesNum-1] !== 0) {
-    alert("This question is already answered!")
-    return;
-  }
-  
-    setIsAnswered(1)
-  document.getElementById("option1").style.borderColor="#107EEB"
-  document.getElementById("option2").style.borderColor="#107EEB"
-  document.getElementById("option3").style.borderColor="#107EEB"
-  document.getElementById("option4").style.borderColor="#107EEB"
 
-  if(score===objectLength){
-    return;
-  }
- var correct_option = questionsList[quesNum-1].correct_option
+  var correct_option = questionsList[quesNum-1].correct_option
+ 
+      if(response[quesNum-1]===0){
 
-    if(flag===1){
-     setScore(score-1)
-     setFlag(0)
-  }
-   if(option_num===correct_option && flag===0){
-        setScore(score+1)
-        setFlag(1)
+        setLastResponse(option_num)
+        setIsAnswered(1)
+
+        document.getElementById("option1").style.borderColor="#107EEB"
+        document.getElementById("option2").style.borderColor="#107EEB"
+        document.getElementById("option3").style.borderColor="#107EEB"
+        document.getElementById("option4").style.borderColor="#107EEB"
+      
+        if(score===objectLength){
+          return;
+        }
+       
+        if(flag===1){
+          setScore(score-1)
+          setFlag(0)
+        }
+        
+         if(option_num===correct_option && flag===0){
+              setScore(score+1)
+              setFlag(1)
+            }
+        if(option_num===1) {
+             document.getElementById("option1").style.borderColor="#74db4b"
+        }
+        if(option_num===2) {
+             document.getElementById("option2").style.borderColor="#74db4b"
+        }
+        if(option_num===3) {
+             document.getElementById("option3").style.borderColor="#74db4b"
+        }
+        if(option_num===4) {
+             document.getElementById("option4").style.borderColor="#74db4b"
+        }
+      
       }
-  if(option_num===1) {
-       document.getElementById("option1").style.borderColor="#74db4b"
-  }
-  if(option_num===2) {
-       document.getElementById("option2").style.borderColor="#74db4b"
-  }
-  if(option_num===3) {
-       document.getElementById("option3").style.borderColor="#74db4b"
-  }
-  if(option_num===4) {
-       document.getElementById("option4").style.borderColor="#74db4b"
-  }
-}
+      if(response[quesNum-1]!==0){
+        if(response[quesNum-1]===option_num && isChangingResp===0){
+          // setIsChangingResp(1)
+        }
+        if(response[quesNum-1]===correct_option && isChangingResp===0 && option_num!==correct_option){
+          setScore(score-1)
+          setIsChangingResp(1)
+          setIsAnswered(1)
+        }
+        else{ 
+          setIsChangingResp(1)
+          setLastResponse(option_num)
+          setIsAnswered(1)
+          // let newAr = [...response]
+          // newAr[quesNum-1] = option_num
+          // setResponse(newAr)
+        document.getElementById("option1").style.borderColor="#107EEB"
+        document.getElementById("option2").style.borderColor="#107EEB"
+        document.getElementById("option3").style.borderColor="#107EEB"
+        document.getElementById("option4").style.borderColor="#107EEB"
+      
+        if(score===objectLength){
+          return;
+        }
+       
+        if(flag===1){
+          setScore(score-1)
+          setFlag(0)
+        }
+        
+         if(option_num===correct_option && flag===0 && isChangingResp===1){
+              setScore(score+1)
+              setFlag(1)
+            }
+        if(option_num===1) {
+             document.getElementById("option1").style.borderColor="#74db4b"
+        }
+        if(option_num===2) {
+             document.getElementById("option2").style.borderColor="#74db4b"
+        }
+        if(option_num===3) {
+             document.getElementById("option3").style.borderColor="#74db4b"
+        }
+        if(option_num===4) {
+             document.getElementById("option4").style.borderColor="#74db4b"
+        }
+           
+          }
+       
+      }
+    }
 
 var ar = []
 var j = 1
@@ -216,23 +286,26 @@ for(var i=0; i<noOfQuestions; i++){
   j++;
 }
 
+
   function handleClick(i, click_status){
    setScore(score)
   setFlag(0)
   if(i===9){
     console.log(i)
   }
-
+  
     if(isAnswered===1){
       let newAr = [...response];
       if(click_status===1 || click_status===-1){
-        newAr[click_status===1?i-1:i+1] = 1;
+        newAr[click_status===1?i-1:i+1] = lastResponse;
       }
       else {
-        newAr[index] = 1;
+        newAr[index] = lastResponse;
       }
       setResponse(newAr);
       setIsAnswered(0)
+      setIsChangingResp(0)
+      setLastResponse(0)
     } 
     
   if(history.location.state.quesNum === noOfQuestions && click_status===1){
@@ -275,7 +348,7 @@ for(var i=0; i<noOfQuestions; i++){
         </div>
       <div className="row">
         <div className="col-md-3"> 
-        {/* Score:{score}, FLag: {flag}, index: {index} */}
+        Score:{score}, Lastresp:{lastResponse}
         </div>
       <div className="col-md-9 option-section"> 
        <ul className="options">
@@ -285,6 +358,12 @@ for(var i=0; i<noOfQuestions; i++){
         <li id="option4" onMouseDown={()=>handleResponse(4, history.location.state.quesNum)}>D. {history.location.state.option4}</li>
       </ul>
       </div>
+    </div>
+    <div className="row">
+      <div className="col-md-3"></div>
+      <div className="col-md-3">Mark for Review</div>
+      <div className="col-md-3"></div>
+      <div className="col-md-3"></div>
     </div>
     <div className="row navigation-buttons footer">
     <div><button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button></div>
