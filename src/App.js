@@ -158,7 +158,7 @@ useEffect(()=>{
       setSeconds((time)=>time-1)
     },1000)
     return ()=>clear();
-},[pageIsLoaded, lastResponse, lastQuestionIndex, isAnswered])
+},[pageIsLoaded, lastResponse, lastQuestionIndex, isAnswered, noOfQuestions])
 
  useEffect(()=>{
   if(isChangingResp===0){
@@ -186,7 +186,7 @@ setQuestionIsChanged(0)
     history.push({pathname: '/scorecard', state: {score: score}})
     clear()
    }
-},[seconds,minutes,history,score, isChangingResp, response, questionIsChanged, noOfQuestions])
+},[seconds,minutes,history,score, isChangingResp, response, questionIsChanged])
 
 
 function handleResponse(option_num, quesNum){
