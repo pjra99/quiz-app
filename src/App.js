@@ -304,7 +304,7 @@ for(var i=0; i<noOfQuestions; i++){
        return;
      }
      console.log(isVisited)
-     if(click_status===0 && lastResponse===0){
+     if(click_status===0 && lastResponse===0 && response[i]===0){
       m[lastQuestionIndex] = "#EC4646"
       setIsVisited(m)
       setLastQuestionIndex(i)
@@ -322,7 +322,7 @@ for(var i=0; i<noOfQuestions; i++){
       //   })
       // return;
      }
-     if(lastResponse===0 && click_status!==0){
+     if(lastResponse===0 && click_status!==0 && response[i]===0){
       m[click_status===1?i-1:i] = "#EC4646";
       setIsVisited(m)
      }
