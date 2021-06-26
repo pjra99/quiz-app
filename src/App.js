@@ -293,30 +293,57 @@ for(var i=0; i<noOfQuestions; i++){
 
 
   function handleClick(i, click_status){
-    let m = [...isVisited]
+
+    if(click_status===-4){
+   if (isVisited[i]==="green"){
+    response[i]===questionsList[i].correct_option? setScore(score-1):setScore(score)
+   }
+   if(isAnswered===1) {
+     flag===1?setScore(score-1):setScore(score)
+   }
+   document.getElementById("option1").style.borderColor="#107EEB"
+   document.getElementById("option2").style.borderColor="#107EEB"
+   document.getElementById("option3").style.borderColor="#107EEB"
+   document.getElementById("option4").style.borderColor="#107EEB"
+   let ar = [...response]
+   ar[i]=0;
+   setResponse(ar)
+   setLastQuestionIndex(i)
+     setIsAnswered(0)
+     setFlag(0)
+      return;
       
-     
+    }
+    let m = [...isVisited]
+   
+
      if(click_status===2){
-       m[i] = "#706897" //purple
+       m[i] = "#706897";
        setIsVisited(m)
        setLastQuestionIndex(i)
        return;
      }
-     if(i===lastQuestionIndex){
-      setLastQuestionIndex(i)
-      return;
-    }
-     if(click_status===0 && response[i]===0){
-      m[lastQuestionIndex] = "#EC4646" //red
+     console.log(isVisited)
+     if(click_status===0 && lastResponse===0 && response[i]===0){
+      m[lastQuestionIndex] = "#EC4646"
       setIsVisited(m)
-      // setLastQuestionIndex(i)
+      setLastQuestionIndex(i)
+      // history.push({
+      //   pathname: '/questiontemplate',
+      //   state: {
+      //     quesNum: i+1,
+      //     question: questionsList[i].ques,
+      //     option1: questionsList[i].option1,
+      //     option2: questionsList[i].option2,
+      //     option3: questionsList[i].option3,
+      //     option4: questionsList[i].option4,
+      //     correct_option: questionsList[i].correct_option
+      //   }
+      //   })
+      // return;
      }
-    //  if(click_status===-1 && response[i]===0){ //problem
-    //   m[click_status===1?i-1:i+1] = "#EC4646"; //red
-    //   setIsVisited(m)
-    //  }
-     if(lastResponse===0 && click_status!==0 && response[lastQuestionIndex]===0){ //problem
-      m[click_status===1?i-1:i+1] = "#EC4646"; //red
+     if(lastResponse===0 && click_status!==0 && response[i]===0){
+      m[click_status===1?i-1:i] = "#EC4646";
       setIsVisited(m)
      }
      if(lastResponse>0){
@@ -327,6 +354,9 @@ for(var i=0; i<noOfQuestions; i++){
     setQuestionIsChanged(1)
    setScore(score)
   setFlag(0)
+  if(i===9){
+    console.log(i)
+  }
   
     if(isAnswered===1){
       let newAr = [...response];
@@ -366,9 +396,6 @@ for(var i=0; i<noOfQuestions; i++){
                 correct_option: questionsList[i].correct_option
               }
               })
-                  
-              // console.log(response[lastQuestionIndex])
-              console.log(lastResponse)
 }
 
     const buttonForEachQuestion = ar.map((i, id)=><button className="ques-navigation-buttons" key={id} style={{backgroundColor: isVisited[id]}} onClick={()=>handleClick(id,0)}>{i}</button>)
@@ -384,7 +411,7 @@ for(var i=0; i<noOfQuestions; i++){
             </div>
           <div className="row">
             <div className="col-md-3"> 
-            {/* Score:{score}, Lastresp:{lastResponse} */}
+            Score:{score}
             </div>
           <div className="col-md-9 option-section"> 
            <ul className="options">
@@ -399,7 +426,7 @@ for(var i=0; i<noOfQuestions; i++){
           <div className="col-md-3"></div>
           <div className="col-md-3"><button onClick={()=>handleClick(history.location.state.quesNum-1,2)}>Mark For Review</button></div>
           <div className="col-md-4">
-          {/* <button onClick={()=>handleMark(history.location.state.quesNum-1,2)}>Don't consider in evaluation</button> */}
+          <button className="clear-response-button" onClick={()=>handleClick(history.location.state.quesNum-1,-4)}>Clear Response</button>
           </div>
           <div className="col-md-2"></div>
         </div>
@@ -454,3 +481,4 @@ function ScoreCard(){
 
 
 export default App;
+ 
