@@ -293,37 +293,30 @@ for(var i=0; i<noOfQuestions; i++){
 
 
   function handleClick(i, click_status){
-    console.log(lastQuestionIndex)
     let m = [...isVisited]
-   
-
+      
+     
      if(click_status===2){
-       m[i] = "#706897";
+       m[i] = "#706897" //purple
        setIsVisited(m)
        setLastQuestionIndex(i)
        return;
      }
-     console.log(isVisited)
-     if(click_status===0 && lastResponse===0 && response[i]===0){
-      m[lastQuestionIndex] = "#EC4646"
-      setIsVisited(m)
+     if(i===lastQuestionIndex){
       setLastQuestionIndex(i)
-      // history.push({
-      //   pathname: '/questiontemplate',
-      //   state: {
-      //     quesNum: i+1,
-      //     question: questionsList[i].ques,
-      //     option1: questionsList[i].option1,
-      //     option2: questionsList[i].option2,
-      //     option3: questionsList[i].option3,
-      //     option4: questionsList[i].option4,
-      //     correct_option: questionsList[i].correct_option
-      //   }
-      //   })
-      // return;
+      return;
+    }
+     if(click_status===0 && response[i]===0){
+      m[lastQuestionIndex] = "#EC4646" //red
+      setIsVisited(m)
+      // setLastQuestionIndex(i)
      }
-     if(lastResponse===0 && click_status!==0 && response[i]===0){
-      m[click_status===1?i-1:i] = "#EC4646";
+    //  if(click_status===-1 && response[i]===0){ //problem
+    //   m[click_status===1?i-1:i+1] = "#EC4646"; //red
+    //   setIsVisited(m)
+    //  }
+     if(lastResponse===0 && click_status!==0 && response[lastQuestionIndex]===0){ //problem
+      m[click_status===1?i-1:i+1] = "#EC4646"; //red
       setIsVisited(m)
      }
      if(lastResponse>0){
@@ -334,9 +327,6 @@ for(var i=0; i<noOfQuestions; i++){
     setQuestionIsChanged(1)
    setScore(score)
   setFlag(0)
-  if(i===9){
-    console.log(i)
-  }
   
     if(isAnswered===1){
       let newAr = [...response];
@@ -376,6 +366,9 @@ for(var i=0; i<noOfQuestions; i++){
                 correct_option: questionsList[i].correct_option
               }
               })
+                  
+              // console.log(response[lastQuestionIndex])
+              console.log(lastResponse)
 }
 
     const buttonForEachQuestion = ar.map((i, id)=><button className="ques-navigation-buttons" key={id} style={{backgroundColor: isVisited[id]}} onClick={()=>handleClick(id,0)}>{i}</button>)
