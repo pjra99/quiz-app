@@ -138,6 +138,8 @@ const [pageIsLoaded, setPageIsLoaded] = useState(0)
 const [lastResponse, setLastResponse] = useState(0)
 const [isChangingResp, setIsChangingResp] = useState(0)
 const [questionIsChanged, setQuestionIsChanged] = useState(0)
+const [isVisited, setIsVisited] = useState([])
+const [lastQuestionIndex, setLastQuestionIndex] = useState(0)
 const id = React.useRef(null);
 const clear=()=>{
 window.clearInterval(id.current)
@@ -145,13 +147,13 @@ window.clearInterval(id.current)
 useEffect(()=>{
  if(pageIsLoaded===0){
   let resp = []
-  for(let i = 0; i<10; i++){
-      resp[i] = 0;
+  for(let i = 0; i<noOfQuestions; i++){
+      resp[i] = 0
   }
   setResponse(resp)
   setPageIsLoaded(pageIsLoaded+1)
+
  }
- 
     id.current=window.setInterval(()=>{
       setSeconds((time)=>time-1)
     },1000)
@@ -188,6 +190,7 @@ setQuestionIsChanged(0)
 
 
 function handleResponse(option_num, quesNum){
+  
 
   var correct_option = questionsList[quesNum-1].correct_option
  
@@ -290,6 +293,44 @@ for(var i=0; i<noOfQuestions; i++){
 
 
   function handleClick(i, click_status){
+    console.log(lastQuestionIndex)
+    let m = [...isVisited]
+   
+
+     if(click_status===2){
+       m[i] = "#706897";
+       setIsVisited(m)
+       setLastQuestionIndex(i)
+       return;
+     }
+     console.log(isVisited)
+     if(click_status===0 && lastResponse===0){
+      m[lastQuestionIndex] = "#EC4646"
+      setIsVisited(m)
+      setLastQuestionIndex(i)
+      // history.push({
+      //   pathname: '/questiontemplate',
+      //   state: {
+      //     quesNum: i+1,
+      //     question: questionsList[i].ques,
+      //     option1: questionsList[i].option1,
+      //     option2: questionsList[i].option2,
+      //     option3: questionsList[i].option3,
+      //     option4: questionsList[i].option4,
+      //     correct_option: questionsList[i].correct_option
+      //   }
+      //   })
+      // return;
+     }
+     if(lastResponse===0 && click_status!==0){
+      m[click_status===1?i-1:i] = "#EC4646";
+      setIsVisited(m)
+     }
+     if(lastResponse>0){
+      m[lastQuestionIndex] = "green"
+      setIsVisited(m)
+     }
+
     setQuestionIsChanged(1)
    setScore(score)
   setFlag(0)
@@ -322,6 +363,7 @@ for(var i=0; i<noOfQuestions; i++){
   setIndex(i)
  }
 
+ setLastQuestionIndex(i)
  history.push({
               pathname: '/questiontemplate',
               state: {
@@ -336,10 +378,8 @@ for(var i=0; i<noOfQuestions; i++){
               })
 }
 
-    const buttonForEachQuestion = ar.map((i, key)=><button className="ques-navigation-buttons" onClick={()=>handleClick(key,0)}>{i}</button>)
+    const buttonForEachQuestion = ar.map((i, id)=><button className="ques-navigation-buttons" key={id} style={{backgroundColor: isVisited[id]}} onClick={()=>handleClick(id,0)}>{i}</button>)
   
-
-
   return(
     <div className="question-template row">
     <div className="col-md-8 question-template-left">
@@ -364,9 +404,11 @@ for(var i=0; i<noOfQuestions; i++){
         </div>
         <div className="row">
           <div className="col-md-3"></div>
-          <div className="col-md-3"></div>
-          <div className="col-md-3"></div>
-          <div className="col-md-3"></div>
+          <div className="col-md-3"><button onClick={()=>handleClick(history.location.state.quesNum-1,2)}>Mark For Review</button></div>
+          <div className="col-md-4">
+          {/* <button onClick={()=>handleMark(history.location.state.quesNum-1,2)}>Don't consider in evaluation</button> */}
+          </div>
+          <div className="col-md-2"></div>
         </div>
         <div className="row navigation-buttons footer">
         <div><button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button></div>

@@ -66,18 +66,20 @@
     top: 10%;
     padding-bottom: 40px;
 }
-.question-template-left, .question-template-right {
+.question-template-left {
     margin-top: 3%;
 }
-.ques-navigation-buttons {
-    margin: 1%;
-    width: 50px;
+.question-template-right {
+    margin-top: 2px;
 }
 
-/* .options {
-    position: relative;
-    left: 3.5%;
-} */
+.ques-navigation-buttons {
+    margin: 1%;
+    width: 40px;
+    border: none;
+    box-shadow: 0px 0px 3px grey;
+}
+
 .options > li {
     list-style-type: none;
     padding: 1%;
