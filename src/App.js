@@ -294,6 +294,9 @@ for(var i=0; i<noOfQuestions; i++){
 
   function handleClick(i, click_status){
 
+     if(lastQuestionIndex===i && click_status !== -4){
+       return;
+     }
     if(click_status===-4){
    if (isVisited[i]==="green"){
     response[i]===questionsList[i].correct_option? setScore(score-1):setScore(score)
@@ -327,7 +330,9 @@ for(var i=0; i<noOfQuestions; i++){
      if(click_status===0 && lastResponse===0 && response[i]===0){
       m[lastQuestionIndex] = "#EC4646"
       setIsVisited(m)
-      setLastQuestionIndex(i)
+      if(lastQuestionIndex===i){
+        return;
+      }
       // history.push({
       //   pathname: '/questiontemplate',
       //   state: {
@@ -342,10 +347,19 @@ for(var i=0; i<noOfQuestions; i++){
       //   })
       // return;
      }
+     if(click_status===0 && response[i]===0){
+      m[lastQuestionIndex] = "#EC4646" //red
+      setIsVisited(m)
+      // setLastQuestionIndex(i)
+     }
      if(lastResponse===0 && click_status!==0 && response[i]===0){
       m[click_status===1?i-1:i] = "#EC4646";
-      setIsVisited(m)
+      // setIsVisited(m)
      }
+     if(lastResponse===0 && click_status!==0 && response[lastQuestionIndex]===0){ //problem
+      m[click_status===1?i-1:i+1] = "#EC4646"; //red
+      setIsVisited(m)
+     }  
      if(lastResponse>0){
       m[lastQuestionIndex] = "green"
       setIsVisited(m)
@@ -411,7 +425,7 @@ for(var i=0; i<noOfQuestions; i++){
             </div>
           <div className="row">
             <div className="col-md-3"> 
-            Score:{score}
+            {/* Score:{score} */}
             </div>
           <div className="col-md-9 option-section"> 
            <ul className="options">
