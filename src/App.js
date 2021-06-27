@@ -208,14 +208,17 @@ function handleResponse(option_num, quesNum){
           return;
         }
        
-        if(flag===1){
+        if(flag===1 && option_num!== correct_option){
           setScore(score-1)
           setFlag(0)
         }
         
-         if(option_num===correct_option && flag===0){
+         if(option_num===correct_option && flag===0 && response[quesNum-1]===0){
               setScore(score+1)
               setFlag(1)
+            }
+            if(response[quesNum-1]!==0 && option_num === correct_option){
+   
             }
         if(option_num===1) {
              document.getElementById("option1").style.borderColor="#74db4b"
@@ -233,30 +236,29 @@ function handleResponse(option_num, quesNum){
       }
       if(response[quesNum-1]!==0){
         if(response[quesNum-1]===option_num && isChangingResp===0){
-          // setIsChangingResp(1)
+          setIsChangingResp(1)
         }
         if(response[quesNum-1]===correct_option && isChangingResp===0 && option_num!==correct_option){
           setScore(score-1)
+          setFlag(0)
           setIsChangingResp(1)
           setIsAnswered(1)
+          
         }
         else{ 
           setIsChangingResp(1)
           setLastResponse(option_num)
           setIsAnswered(1)
-          // let newAr = [...response]
-          // newAr[quesNum-1] = option_num
-          // setResponse(newAr)
-        document.getElementById("option1").style.borderColor="#107EEB"
-        document.getElementById("option2").style.borderColor="#107EEB"
-        document.getElementById("option3").style.borderColor="#107EEB"
-        document.getElementById("option4").style.borderColor="#107EEB"
+        // document.getElementById("option1").style.borderColor="#107EEB"
+        // document.getElementById("option2").style.borderColor="#107EEB"
+        // document.getElementById("option3").style.borderColor="#107EEB"
+        // document.getElementById("option4").style.borderColor="#107EEB"
       
         if(score===objectLength){
           return;
         }
        
-        if(flag===1){
+        if(flag===1 && option_num!== correct_option){
           setScore(score-1)
           setFlag(0)
         }
@@ -265,20 +267,36 @@ function handleResponse(option_num, quesNum){
               setScore(score+1)
               setFlag(1)
             }
-        if(option_num===1) {
-             document.getElementById("option1").style.borderColor="#74db4b"
-        }
-        if(option_num===2) {
-             document.getElementById("option2").style.borderColor="#74db4b"
-        }
-        if(option_num===3) {
-             document.getElementById("option3").style.borderColor="#74db4b"
-        }
-        if(option_num===4) {
-             document.getElementById("option4").style.borderColor="#74db4b"
-        }
+        // if(option_num===1) {
+        //      document.getElementById("option1").style.borderColor="#74db4b"
+        // }
+        // if(option_num===2) {
+        //      document.getElementById("option2").style.borderColor="#74db4b"
+        // }
+        // if(option_num===3) {
+        //      document.getElementById("option3").style.borderColor="#74db4b"
+        // }
+        // if(option_num===4) {
+        //      document.getElementById("option4").style.borderColor="#74db4b"
+        // }
            
           }
+          document.getElementById("option1").style.borderColor="#107EEB"
+          document.getElementById("option2").style.borderColor="#107EEB"
+          document.getElementById("option3").style.borderColor="#107EEB"
+          document.getElementById("option4").style.borderColor="#107EEB"
+          if(option_num===1) {
+            document.getElementById("option1").style.borderColor="#74db4b"
+       }
+       if(option_num===2) {
+            document.getElementById("option2").style.borderColor="#74db4b"
+       }
+       if(option_num===3) {
+            document.getElementById("option3").style.borderColor="#74db4b"
+       }
+       if(option_num===4) {
+            document.getElementById("option4").style.borderColor="#74db4b"
+       }
        
       }
     }
@@ -298,11 +316,11 @@ for(var i=0; i<noOfQuestions; i++){
        return;
      }
     if(click_status===-4){
-   if (isVisited[i]==="green"){
+   if (isVisited[i]==="green" || isVisited[i]===""){
     response[i]===questionsList[i].correct_option? setScore(score-1):setScore(score)
    }
    if(isAnswered===1) {
-     flag===1?setScore(score-1):setScore(score)
+     lastResponse===questionsList[i].correct_option?setScore(score-1):setScore(score)
    }
    document.getElementById("option1").style.borderColor="#107EEB"
    document.getElementById("option2").style.borderColor="#107EEB"
@@ -333,19 +351,7 @@ for(var i=0; i<noOfQuestions; i++){
       if(lastQuestionIndex===i){
         return;
       }
-      // history.push({
-      //   pathname: '/questiontemplate',
-      //   state: {
-      //     quesNum: i+1,
-      //     question: questionsList[i].ques,
-      //     option1: questionsList[i].option1,
-      //     option2: questionsList[i].option2,
-      //     option3: questionsList[i].option3,
-      //     option4: questionsList[i].option4,
-      //     correct_option: questionsList[i].correct_option
-      //   }
-      //   })
-      // return;
+
      }
      if(click_status===0 && response[i]===0){
       m[lastQuestionIndex] = "#EC4646" //red
@@ -368,9 +374,6 @@ for(var i=0; i<noOfQuestions; i++){
     setQuestionIsChanged(1)
    setScore(score)
   setFlag(0)
-  if(i===9){
-    console.log(i)
-  }
   
     if(isAnswered===1){
       let newAr = [...response];
@@ -425,7 +428,6 @@ for(var i=0; i<noOfQuestions; i++){
             </div>
           <div className="row">
             <div className="col-md-3"> 
-            {/* Score:{score} */}
             </div>
           <div className="col-md-9 option-section"> 
            <ul className="options">
@@ -437,7 +439,9 @@ for(var i=0; i<noOfQuestions; i++){
           </div>
         </div>
         <div className="row">
-          <div className="col-md-3"></div>
+          <div className="col-md-3">
+          Score:{score}
+          </div>
           <div className="col-md-3"><button onClick={()=>handleClick(history.location.state.quesNum-1,2)}>Mark For Review</button></div>
           <div className="col-md-4">
           <button className="clear-response-button" onClick={()=>handleClick(history.location.state.quesNum-1,-4)}>Clear Response</button>
