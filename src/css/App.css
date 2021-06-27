@@ -212,6 +212,9 @@ padding-left: 8%;
 }
 }
 @media only screen and (max-width: 400px){
+    .greet-user{
+        margin-top: 100px;
+    }
     .App-screen {
         height: 100vh;
     }

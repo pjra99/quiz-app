@@ -420,7 +420,7 @@ for(var i=0; i<noOfQuestions; i++){
         </div>
         <div className="row question-template-buttons-section">
           <div className="col-md-3">
-          Score:{score}
+          {/* Score:{score} */}
           </div>
           <div className="col-md-3 mark-for-review-button"><button onClick={()=>handleClick(history.location.state.quesNum-1,2)}>Mark For Review</button></div>
           <div className="col-md-2 clear-response-button">
