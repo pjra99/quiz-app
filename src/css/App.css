@@ -235,7 +235,7 @@ padding-left: 8%;
     }
     .question-template {
         width: 90%;
-        right: 1%;
+        right: .5%;
     }
     .options > li {
         width: 70%;
