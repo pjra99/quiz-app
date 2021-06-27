@@ -55,22 +55,17 @@
     padding-bottom: 1%;
 }
 .question-template {
+    position:relative;
     background-color: #f5f5f5;
-    /* color: white; */
-    width: 80%;
-    position: relative;
-    left: 11.5%;
     border-radius: 5px;
-    height: 100%;
-    position: relative;
-    top: 10%;
-    padding-bottom: 40px;
+    margin: 20px;
+    padding-bottom: 10px;
 }
 .question-template-left {
-    margin-top: 3%;
+    margin-top: 2%;
 }
 .question-template-right {
-    margin-top: 2px;
+    padding: 2% 2%;
 }
 
 .ques-navigation-buttons {
@@ -98,13 +93,27 @@
     position: relative;
     left: 10%;
 }
-.clear-response {
+.question-template-buttons-section {
+    padding-top: 20px;
+}
+.clear-response-button > button {
     background-color: #107EEB;
     color: white;
-    position: relative;
-    left: 35%;
     border: 2px;
     font-size: 12px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+}
+.mark-for-review-button, .clear-response-button {
+    display: flex;
+    justify-content: center;
+    margin: 2%;
+}
+.mark-for-review-button > button {
+    border: none;
+    background-color: #E93B81;
+    color: white;
     border-radius: 2px;
 }
 .greet-user {
@@ -143,7 +152,7 @@
     bottom: 0px;
     display: flex;
     justify-content: center;
-    margin-left: 23%;
+    left: 35.0%;
 }
 .prev-btn {
     color: white;
@@ -163,11 +172,10 @@
     bottom: 0px;
     display: flex;
     justify-content: center;
-    left: 11.8%;
+    left: 36%;
     }
 }
 @media only screen and (max-width: 991px){
-
   .question-statement {
       margin-top: 10%;
   }
@@ -180,8 +188,7 @@
   .options > li {
       width: 150px;
       margin-left: 20px;
-  }
-  
+  }  
   .options {
     top: 20px;
     margin-left: 20px;
@@ -199,14 +206,15 @@ padding-left: 8%;
     top: 20px;
 }
 .footer {
-    position: fixed;
-    bottom: 0px;
-     
     font-size: 10px;
-    right: 7%;
+    right: 45%;
+    z-index: 1;
 }
 }
 @media only screen and (max-width: 400px){
+    .App-screen {
+        height: 100vh;
+    }
     .greet-user {
         top: 10%;
     }
@@ -224,10 +232,29 @@ padding-left: 8%;
     }
     .question-template {
         width: 90%;
-        left: 8.5%;
+        right: 1%;
     }
     .options > li {
         width: 70%;
+    }
+    .footer {
+        font-size: 10px;
+        right: 45%;
+    }
+}
+@media only screen and (max-width: 365px) {
+    .navigation-buttons > div >button {
+     margin-left: 10vw;
+    }
+    .question-template {
+      right: 1%;
+      padding-bottom: 10%;
+    }
+}
+@media only screen and (max-width: 357px) {
+    .navigation-buttons > div >button {
+        margin-left: 10vw;
+        font-size: 15px;
     }
 }
 .score {
@@ -251,4 +278,13 @@ padding-left: 8%;
     font-size: 15px;
     padding: 1%;
     border-radius: 5px;
+}
+
+@media only screen and (max-width: 280px){
+    .App-screen {
+        height: 100%;
+    }
+    .question-template{
+        right: 2%;
+    }
 }

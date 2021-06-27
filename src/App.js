@@ -217,9 +217,6 @@ function handleResponse(option_num, quesNum){
               setScore(score+1)
               setFlag(1)
             }
-            if(response[quesNum-1]!==0 && option_num === correct_option){
-   
-            }
         if(option_num===1) {
              document.getElementById("option1").style.borderColor="#74db4b"
         }
@@ -232,7 +229,6 @@ function handleResponse(option_num, quesNum){
         if(option_num===4) {
              document.getElementById("option4").style.borderColor="#74db4b"
         }
-      
       }
       if(response[quesNum-1]!==0){
         if(response[quesNum-1]===option_num && isChangingResp===0){
@@ -246,17 +242,11 @@ function handleResponse(option_num, quesNum){
           setFlag(0)
           setIsChangingResp(1)
           setIsAnswered(1)
-          
         }
         else{ 
           setIsChangingResp(1)
           setLastResponse(option_num)
           setIsAnswered(1)
-        // document.getElementById("option1").style.borderColor="#107EEB"
-        // document.getElementById("option2").style.borderColor="#107EEB"
-        // document.getElementById("option3").style.borderColor="#107EEB"
-        // document.getElementById("option4").style.borderColor="#107EEB"
-      
         if(score===objectLength){
           return;
         }
@@ -269,20 +259,7 @@ function handleResponse(option_num, quesNum){
          if(option_num===correct_option && flag===0 && isChangingResp===1){
               setScore(score+1)
               setFlag(1)
-            }
-        // if(option_num===1) {
-        //      document.getElementById("option1").style.borderColor="#74db4b"
-        // }
-        // if(option_num===2) {
-        //      document.getElementById("option2").style.borderColor="#74db4b"
-        // }
-        // if(option_num===3) {
-        //      document.getElementById("option3").style.borderColor="#74db4b"
-        // }
-        // if(option_num===4) {
-        //      document.getElementById("option4").style.borderColor="#74db4b"
-        // }
-           
+            }       
           }
           document.getElementById("option1").style.borderColor="#107EEB"
           document.getElementById("option2").style.borderColor="#107EEB"
@@ -304,14 +281,6 @@ function handleResponse(option_num, quesNum){
       }
     }
 
-var ar = []
-var j = 1
-for(var i=0; i<noOfQuestions; i++){
-  
-  ar[i] = j;
-  j++;
-}
-
 
   function handleClick(i, click_status){
  
@@ -319,7 +288,7 @@ for(var i=0; i<noOfQuestions; i++){
        return;
      }
     if(click_status===-4){
-   if (isVisited[i]==="green" || isVisited[i]===""){
+   if (isVisited[i]==="#84B241" || isVisited[i]===""){
     response[i]===questionsList[i].correct_option? setScore(score-1):setScore(score)
    }
    if(isAnswered===1) {
@@ -342,14 +311,14 @@ for(var i=0; i<noOfQuestions; i++){
    
      if(click_status===2){
       console.log("hi")
-       m[i] = "#706897";
+       m[i] = "#706897" //purple
        setIsVisited(m)
        setLastQuestionIndex(i)
        return;
      }
      console.log(isVisited)
      if(click_status===0 && lastResponse===0 && response[i]===0){
-      m[lastQuestionIndex] = "#EC4646"
+      m[lastQuestionIndex] = "#E54C32"
       setIsVisited(m)
       if(lastQuestionIndex===i){
         return;
@@ -357,20 +326,20 @@ for(var i=0; i<noOfQuestions; i++){
 
      }
      if(click_status===0 && response[i]===0){
-      m[lastQuestionIndex] = "#EC4646" //red
+      m[lastQuestionIndex] = "#E54C32" //red
       setIsVisited(m)
       // setLastQuestionIndex(i)
      }
      if(lastResponse===0 && click_status!==0 && response[i]===0){
-      m[click_status===1?i-1:i] = "#EC4646";
+      m[click_status===1?i-1:i] = "#E54C32";
       // setIsVisited(m)
      }
      if(lastResponse===0 && click_status!==0 && response[lastQuestionIndex]===0){ //problem
-      m[click_status===1?i-1:i+1] = "#EC4646"; //red
+      m[click_status===1?i-1:i+1] = "#E54C32"; //red
       setIsVisited(m)
      }  
      if(lastResponse>0){
-      m[lastQuestionIndex]==="#706897"? m[lastQuestionIndex]="#706897":m[lastQuestionIndex]="green"
+      m[lastQuestionIndex]==="#706897"? m[lastQuestionIndex]="#706897":m[lastQuestionIndex]="#84B241" //green
       setIsVisited(m)
      }
 
@@ -417,6 +386,14 @@ for(var i=0; i<noOfQuestions; i++){
               }
               })
 }
+var ar = []
+var j = 1
+for(var i=0; i<noOfQuestions; i++){
+  
+  ar[i] = j;
+  j++;
+}
+
 
     const buttonForEachQuestion = ar.map((i, id)=><button className="ques-navigation-buttons" key={id} style={{backgroundColor: isVisited[id]}} onClick={()=>handleClick(id,0)}>{i}</button>)
   
@@ -441,15 +418,15 @@ for(var i=0; i<noOfQuestions; i++){
           </ul>
           </div>
         </div>
-        <div className="row">
+        <div className="row question-template-buttons-section">
           <div className="col-md-3">
           Score:{score}
           </div>
-          <div className="col-md-3"><button onClick={()=>handleClick(history.location.state.quesNum-1,2)}>Mark For Review</button></div>
-          <div className="col-md-4">
-          <button className="clear-response-button" onClick={()=>handleClick(history.location.state.quesNum-1,-4)}>Clear Response</button>
+          <div className="col-md-3 mark-for-review-button"><button onClick={()=>handleClick(history.location.state.quesNum-1,2)}>Mark For Review</button></div>
+          <div className="col-md-2 clear-response-button">
+          <button  onClick={()=>handleClick(history.location.state.quesNum-1,-4)}>Clear</button>
           </div>
-          <div className="col-md-2"></div>
+          <div className="col-md-3"></div>
         </div>
         <div className="row navigation-buttons footer">
         <div><button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button></div>
