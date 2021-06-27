@@ -238,6 +238,9 @@ function handleResponse(option_num, quesNum){
         if(response[quesNum-1]===option_num && isChangingResp===0){
           setIsChangingResp(1)
         }
+        if(response[quesNum-1]!== correct_option && isChangingResp===0){
+         option_num===correct_option? setScore(score+1): setScore(score)
+        }
         if(response[quesNum-1]===correct_option && isChangingResp===0 && option_num!==correct_option){
           setScore(score-1)
           setFlag(0)
