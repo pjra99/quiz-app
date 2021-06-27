@@ -293,8 +293,8 @@ for(var i=0; i<noOfQuestions; i++){
 
 
   function handleClick(i, click_status){
-
-     if(lastQuestionIndex===i && click_status !== -4){
+ 
+     if(lastQuestionIndex===i && click_status !== -4 && click_status!== 2){
        return;
      }
     if(click_status===-4){
@@ -319,8 +319,8 @@ for(var i=0; i<noOfQuestions; i++){
     }
     let m = [...isVisited]
    
-
      if(click_status===2){
+      console.log("hi")
        m[i] = "#706897";
        setIsVisited(m)
        setLastQuestionIndex(i)
