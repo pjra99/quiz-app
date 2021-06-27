@@ -361,7 +361,7 @@ for(var i=0; i<noOfQuestions; i++){
       setIsVisited(m)
      }  
      if(lastResponse>0){
-      m[lastQuestionIndex] = "green"
+      m[lastQuestionIndex]==="#706897"? m[lastQuestionIndex]="#706897":m[lastQuestionIndex]="green"
       setIsVisited(m)
      }
 
