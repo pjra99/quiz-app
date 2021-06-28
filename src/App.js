@@ -519,8 +519,8 @@ function GreetUser(){
   }
   return(
     <div className="greet-screen">
-     <div className="row greet-user">Hello, User</div>
-     <div className="row start-quiz"><button onClick={()=>handleClick(0)}>Start</button></div>
+     <div className="greet-user">Hello, User</div>
+     <div className="start-quiz"><button onClick={()=>handleClick(0)}>Start</button></div>
       </div>
   )
 }

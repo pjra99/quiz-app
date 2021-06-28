@@ -312,6 +312,11 @@ padding-left: 8%;
 .score-card-template {
     position: relative;
     top: 20%;
+    height: 100vh;
+}
+.greet-screen {
+    height: 100vh;
+    /* width: 100%; */
 }
 .reset-btn-section{
     display: flex;
