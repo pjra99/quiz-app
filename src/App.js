@@ -311,6 +311,7 @@ function handleResponse(option_num, quesNum){
   setLastQuestionIndex(i)
     setIsAnswered(0)
     setFlag(0)
+    setLastResponse(0)
      return;
      
    }
