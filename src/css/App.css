@@ -61,6 +61,14 @@
     margin: 20px;
     padding-bottom: 10px;
 }
+.display-section-row {
+    height: 20px;
+}
+.display-section {
+    display: flex;
+    justify-content: center;
+    color: red
+}
 .question-template-left {
     margin-top: 2%;
 }

@@ -140,6 +140,8 @@ const [isChangingResp, setIsChangingResp] = useState(0)
 const [questionIsChanged, setQuestionIsChanged] = useState(0)
 const [isVisited, setIsVisited] = useState([])
 const [lastQuestionIndex, setLastQuestionIndex] = useState(0)
+const [isLastQuestionMarkedForReview, setIsLastQuestionMarkedForReview] = useState(0)
+const [display, setDisplay] = useState("")
 const id = React.useRef(null);
 const clear=()=>{
 window.clearInterval(id.current)
@@ -182,7 +184,7 @@ setQuestionIsChanged(0)
     setSeconds(59)
    }
    if(minutes===0 && seconds===-1){
-    alert("Time's Up!")
+    setDisplay("Time's Up!")
     history.push({pathname: '/scorecard', state: {score: score}})
     clear()
    }
@@ -191,7 +193,7 @@ setQuestionIsChanged(0)
 
 function handleResponse(option_num, quesNum){
   
-
+  setDisplay("")
   var correct_option = questionsList[quesNum-1].correct_option
  
       if(response[quesNum-1]===0){
@@ -283,108 +285,115 @@ function handleResponse(option_num, quesNum){
 
 
   function handleClick(i, click_status){
- 
-     if(lastQuestionIndex===i && click_status !== -4 && click_status!== 2){
-       return;
-     }
-    if(click_status===-4){
-   if (isVisited[i]==="#84B241" || isVisited[i]===""){
-    response[i]===questionsList[i].correct_option? setScore(score-1):setScore(score)
-   }
-   if(isAnswered===1) {
-     lastResponse===questionsList[i].correct_option?setScore(score-1):setScore(score)
-   }
-   document.getElementById("option1").style.borderColor="#107EEB"
-   document.getElementById("option2").style.borderColor="#107EEB"
-   document.getElementById("option3").style.borderColor="#107EEB"
-   document.getElementById("option4").style.borderColor="#107EEB"
-   let ar = [...response]
-   ar[i]=0;
-   setResponse(ar)
-   setLastQuestionIndex(i)
-     setIsAnswered(0)
-     setFlag(0)
+    setDisplay("")
+
+    if(lastQuestionIndex===i && click_status !== -4 && click_status!== 2){
       return;
-      
     }
     let m = [...isVisited]
-   
-     if(click_status===2){
-      console.log("hi")
-       m[i] = "#706897" //purple
-       setIsVisited(m)
-       setLastQuestionIndex(i)
-       return;
-     }
-     console.log(isVisited)
-     if(click_status===0 && lastResponse===0 && response[i]===0){
-      m[lastQuestionIndex] = "#E54C32"
-      setIsVisited(m)
-      if(lastQuestionIndex===i){
-        return;
-      }
+   if(click_status===-4){
 
-     }
-     if(click_status===0 && response[i]===0){
-      m[lastQuestionIndex] = "#E54C32" //red
-      setIsVisited(m)
-      // setLastQuestionIndex(i)
-     }
-     if(lastResponse===0 && click_status!==0 && response[i]===0){
-      m[click_status===1?i-1:i] = "#E54C32";
-      // setIsVisited(m)
-     }
-     if(lastResponse===0 && click_status!==0 && response[lastQuestionIndex]===0){ //problem
-      m[click_status===1?i-1:i+1] = "#E54C32"; //red
-      setIsVisited(m)
-     }  
-     if(lastResponse>0){
-      m[lastQuestionIndex]==="#706897"? m[lastQuestionIndex]="#706897":m[lastQuestionIndex]="#84B241" //green
-      setIsVisited(m)
-     }
-
-    setQuestionIsChanged(1)
-   setScore(score)
-  setFlag(0)
-  
-    if(isAnswered===1){
-      let newAr = [...response];
-      if(click_status===1 || click_status===-1){
-        newAr[click_status===1?i-1:i+1] = lastResponse;
-      }
-      else {
-        newAr[index] = lastResponse;
-      }
-      setResponse(newAr);
-      setIsAnswered(0)
-      setIsChangingResp(0)
-      setLastResponse(0)
-    } 
-    
-  if(history.location.state.quesNum === noOfQuestions && click_status===1){
-    return;
+  if (isVisited[i]==="#84B241" || isVisited[i]===""){
+    m[i]=""
+    setIsVisited(m)
+   response[i]===questionsList[i].correct_option? setScore(score-1):setScore(score)
   }
- else {
+  if(isAnswered===1) {
+    lastResponse===questionsList[i].correct_option?setScore(score-1):setScore(score)
+  }
   document.getElementById("option1").style.borderColor="#107EEB"
   document.getElementById("option2").style.borderColor="#107EEB"
   document.getElementById("option3").style.borderColor="#107EEB"
   document.getElementById("option4").style.borderColor="#107EEB"
-  setIndex(i)
+  let ar = [...response]
+  ar[i]=0;
+  setResponse(ar)
+  setLastQuestionIndex(i)
+    setIsAnswered(0)
+    setFlag(0)
+     return;
+     
+   }
+  
+  
+    if(click_status===2){
+      if(response[i] || lastResponse>0){
+        m[i] = "#706897" //purple
+      setIsVisited(m)
+      setLastQuestionIndex(i)
+      setIsLastQuestionMarkedForReview(1)
+      }
+      else {
+        setDisplay("First, Give the Response.")
+      }
+      return;
+    }
+    if(click_status===0 && lastResponse===0 && response[lastQuestionIndex]===0){
+     m[lastQuestionIndex] = "#E54C32"
+     setIsVisited(m)
+     if(lastQuestionIndex===i){
+       return;
+     }
+    }
+    if(click_status===0 && response[lastQuestionIndex]===0){
+     m[lastQuestionIndex] = "#E54C32" //red
+     setIsVisited(m)
+    }
+    // if(lastResponse===0 && click_status!==0 && response[i]===0){
+    //  m[click_status===1?i-1:i] = "#E54C32";
+    // }
+    if(lastResponse===0 && click_status!==0 && response[lastQuestionIndex]===0){ //problem
+     m[click_status===1?i-1:i+1] = "#E54C32"; //red
+     setIsVisited(m)
+    }  
+    if(lastResponse>0 ){
+      console.log("Bdsk")
+     isLastQuestionMarkedForReview===1? m[lastQuestionIndex]="#706897":m[lastQuestionIndex]="#84B241" //green
+     setIsVisited(m)
+    }
+  setIsLastQuestionMarkedForReview(0)
+   setQuestionIsChanged(1)
+  setScore(score)
+ setFlag(0)
+ 
+   if(isAnswered===1){
+     let newAr = [...response];
+     if(click_status===1 || click_status===-1){
+       newAr[click_status===1?i-1:i+1] = lastResponse;
+     }
+     else {
+       newAr[index] = lastResponse;
+     }
+     setResponse(newAr);
+     setIsAnswered(0)
+     setIsChangingResp(0)
+     setLastResponse(0)
+   } 
+   
+ if(history.location.state.quesNum === noOfQuestions && click_status===1){
+   return;
  }
+else {
+ document.getElementById("option1").style.borderColor="#107EEB"
+ document.getElementById("option2").style.borderColor="#107EEB"
+ document.getElementById("option3").style.borderColor="#107EEB"
+ document.getElementById("option4").style.borderColor="#107EEB"
+ setIndex(i)
+}
 
- setLastQuestionIndex(i)
- history.push({
-              pathname: '/questiontemplate',
-              state: {
-                quesNum: i+1,
-                question: questionsList[i].ques,
-                option1: questionsList[i].option1,
-                option2: questionsList[i].option2,
-                option3: questionsList[i].option3,
-                option4: questionsList[i].option4,
-                correct_option: questionsList[i].correct_option
-              }
-              })
+setLastQuestionIndex(i)
+history.push({
+             pathname: '/questiontemplate',
+             state: {
+               quesNum: i+1,
+               question: questionsList[i].ques,
+               option1: questionsList[i].option1,
+               option2: questionsList[i].option2,
+               option3: questionsList[i].option3,
+               option4: questionsList[i].option4,
+               correct_option: questionsList[i].correct_option
+             }
+             })
 }
 var ar = []
 var j = 1
@@ -400,6 +409,11 @@ for(var i=0; i<noOfQuestions; i++){
   return(
     <div className="question-template row">
     <div className="col-md-8 question-template-left">
+      <div className="row display-section-row">
+        <div className="col-md-2"></div>
+        <div className="col-md-8 display-section">{display}</div>
+        <div className="col-md-2"></div>
+      </div>
     <div className="row ">
       {/* This APP is under construction currently ._. */}
             <div className="col-md-2"><span className="ques-num">{history.location.state.quesNum}/{noOfQuestions}</span></div>
@@ -420,7 +434,7 @@ for(var i=0; i<noOfQuestions; i++){
         </div>
         <div className="row question-template-buttons-section">
           <div className="col-md-3">
-          {/* Score:{score} */}
+          {/* Score:{score}, Last Resp: {lastResponse} */}
           </div>
           <div className="col-md-3 mark-for-review-button"><button onClick={()=>handleClick(history.location.state.quesNum-1,2)}>Mark For Review</button></div>
           <div className="col-md-2 clear-response-button">
