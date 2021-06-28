@@ -132,7 +132,7 @@ function QuestionTemplate(){
 const [score, setScore] = useState(0)
 const [flag, setFlag] = useState(0)
 const [seconds, setSeconds] = useState(59)
-const [minutes, setMinutes] = useState(59)
+const [minutes, setMinutes] = useState(1)
 var [response, setResponse] = useState([])
 var [isAnswered, setIsAnswered] = useState()
 var noOfQuestions = 10;
