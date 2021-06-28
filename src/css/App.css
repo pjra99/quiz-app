@@ -257,7 +257,8 @@ padding-left: 8%;
         margin-top: 100px;
     }
     .App-screen {
-        height: 100vh;
+        height: 100%;
+        padding-bottom: 12%;
     }
     .greet-user {
         top: 10%;
