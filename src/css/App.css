@@ -234,10 +234,9 @@ padding-top: 10%;
     top: 20px;
     margin-left: 20px;
 }
+
 .question-template-right {
-    margin-top: 20%;
-}
-.question-template-right {
+    margin-top: 5%;
 padding-left: 8%;
 }
 .question-template-bottom {
@@ -257,8 +256,8 @@ padding-left: 8%;
         margin-top: 100px;
     }
     .App-screen {
-        height: 100%;
-        padding-bottom: 12%;
+        height: 100vh;
+        /* padding-bottom: 12%; */
     }
     .greet-user {
         top: 10%;
