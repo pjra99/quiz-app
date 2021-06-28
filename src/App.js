@@ -2,6 +2,8 @@ import "./css/App.css"
 import {useState, useEffect} from "react"
 import React from "react"
 import {Switch, Route, useHistory} from "react-router-dom"
+// import toast, { Toaster } from 'react-hot-toast';
+import swal from 'sweetalert';
 
 function App() {
 
@@ -38,6 +40,7 @@ function App() {
           </Route>
            </Switch>
          </div>
+       
     </div>
   );
 }
@@ -129,7 +132,7 @@ function QuestionTemplate(){
 const [score, setScore] = useState(0)
 const [flag, setFlag] = useState(0)
 const [seconds, setSeconds] = useState(59)
-const [minutes, setMinutes] = useState(59)
+const [minutes, setMinutes] = useState(1)
 var [response, setResponse] = useState([])
 var [isAnswered, setIsAnswered] = useState()
 var noOfQuestions = 10;
@@ -184,7 +187,7 @@ setQuestionIsChanged(0)
     setSeconds(59)
    }
    if(minutes===0 && seconds===-1){
-    setDisplay("Time's Up!")
+    swal("Time's Up!");
     history.push({pathname: '/scorecard', state: {score: score}})
     clear()
    }
@@ -446,12 +449,52 @@ for(var i=0; i<noOfQuestions; i++){
         <div className="row navigation-buttons footer">
         <div><button onClick={()=>handleClick(index-1<0?index: index-1,-1)}>Prev</button></div>
        <div><button onClick={()=>handleClick(index===noOfQuestions-1? index: index+1,1)}>Next</button></div>
-       <div><button onClick={()=>history.push({pathname: '/greetuser'})} >Abort</button></div>
-       <div><button onClick={()=>history.push({pathname: './scorecard', state: { score: score }})}>Submit</button></div>
+       <div><button  onClick={()=>{
+         swal({
+          title: "Are you sure to Abort the Quiz?",
+          text: "Once you click 'OK', you will not be able to return back and your Score till now would not be shown.",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            history.push({pathname: './scorecard', state: { score: score }})
+            swal("Quiz Aborted!", {
+              icon: "success",
+            });
+          } else {
+          }
+        });
+         }} >Abort</button></div>
+       <div><button onClick={()=>{
+         swal({
+          title: "Are you sure to Submit the Quiz?",
+          text: "If you Submit the quiz, you will not be able to return back.",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            history.push({pathname: './scorecard', state: { score: score }})
+            swal("Quiz Submitted!", {
+              icon: "success",
+            });
+          } else {
+          }
+        });
+         }}>Submit</button></div>
          </div>
     </div>
     <div className="col-md-4 question-template-right">
-    {buttonForEachQuestion}
+    <div className="row">{buttonForEachQuestion} </div>
+    <div className="row instructions">
+      <div><span className="red"></span> Not Answered</div>
+      <div><span className="green"></span> Answered</div>
+      <div><span className="purple"></span> Marked For Review</div>
+
+    </div>
     </div>
         </div>
   )

@@ -15,6 +15,39 @@
 .header-left-col, .header-right-col {
     color: #c9563e;
 }
+.instructions {
+padding-top: 10%;
+}
+.instructions > div {
+   display: flex;
+   color: #5c5b5b;
+}
+.red {
+    width: 10px;
+    height: 10px;
+    background-color: #E54C32;
+    margin-right: 1%;
+    margin-top: 1.2%;
+    border-radius: 2px;
+}
+.green {
+    width: 10px;
+    height: 10px;
+    background-color: #84B241;
+    margin-right: 1%;
+    margin-top: 1.2%;
+    border-radius: 2px;
+
+}
+.purple {
+    width: 10px;
+    height: 10px;
+    background-color: #706897;
+    margin-right: 1%;
+    margin-top: 1.2%;
+    border-radius: 2px;
+
+}
 .questions-palette {
     position: relative;
     top: 10px;
