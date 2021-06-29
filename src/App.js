@@ -296,7 +296,7 @@ function handleResponse(option_num, quesNum){
     let m = [...isVisited]
    if(click_status===-4){
 
-  if (isVisited[i]==="#84B241" || isVisited[i]===""){
+  if (isVisited[i]==="#84B241" || isVisited[i]==="" || isVisited[i]==="#706897"){
     m[i]=""
     setIsVisited(m)
    response[i]===questionsList[i].correct_option? setScore(score-1):setScore(score)
@@ -351,7 +351,6 @@ function handleResponse(option_num, quesNum){
      setIsVisited(m)
     }  
     if(lastResponse>0 ){
-      console.log("Bdsk")
      isLastQuestionMarkedForReview===1? m[lastQuestionIndex]="#706897":m[lastQuestionIndex]="#84B241" //green
      setIsVisited(m)
     }
