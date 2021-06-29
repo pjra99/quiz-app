@@ -159,6 +159,11 @@ useEffect(()=>{
   setPageIsLoaded(pageIsLoaded+1)
 
  }
+ if(isAnswered===1){
+   let m = [...isVisited]
+   m[index] = "#84B241"
+   setIsVisited(m)
+ }
     id.current=window.setInterval(()=>{
       setSeconds((time)=>time-1)
     },1000)
@@ -343,9 +348,6 @@ function handleResponse(option_num, quesNum){
      m[lastQuestionIndex] = "#E54C32" //red
      setIsVisited(m)
     }
-    // if(lastResponse===0 && click_status!==0 && response[i]===0){
-    //  m[click_status===1?i-1:i] = "#E54C32";
-    // }
     if(lastResponse===0 && click_status!==0 && response[lastQuestionIndex]===0){ //problem
      m[click_status===1?i-1:i+1] = "#E54C32"; //red
      setIsVisited(m)
