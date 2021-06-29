@@ -172,7 +172,7 @@ useEffect(()=>{
     },1000)
     return ()=>clear();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    //eslint-disable-next-line
 },[pageIsLoaded, lastResponse, lastQuestionIndex, isAnswered, noOfQuestions])
 
  useEffect(()=>{
