@@ -115,7 +115,9 @@ padding-top: 10%;
     border: none;
     box-shadow: 0px 0px 3px grey;
 }
-
+.options {
+    margin-left: 3%;
+}
 .options > li {
     list-style-type: none;
     padding: 1%;
