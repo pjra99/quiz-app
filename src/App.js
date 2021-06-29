@@ -149,8 +149,11 @@ const id = React.useRef(null);
 const clear=()=>{
 window.clearInterval(id.current)
 }
+
+
 useEffect(()=>{
  if(pageIsLoaded===0){
+
   let resp = []
   for(let i = 0; i<noOfQuestions; i++){
       resp[i] = 0
@@ -168,6 +171,8 @@ useEffect(()=>{
       setSeconds((time)=>time-1)
     },1000)
     return ()=>clear();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 },[pageIsLoaded, lastResponse, lastQuestionIndex, isAnswered, noOfQuestions])
 
  useEffect(()=>{
