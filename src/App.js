@@ -132,7 +132,7 @@ function QuestionTemplate(){
 const [score, setScore] = useState(0)
 const [flag, setFlag] = useState(0)
 const [seconds, setSeconds] = useState(59)
-const [minutes, setMinutes] = useState(1)
+const [minutes, setMinutes] = useState(59)
 var [response, setResponse] = useState([])
 var [isAnswered, setIsAnswered] = useState()
 var noOfQuestions = 10;
@@ -145,11 +145,11 @@ const [isVisited, setIsVisited] = useState([])
 const [lastQuestionIndex, setLastQuestionIndex] = useState(0)
 const [isLastQuestionMarkedForReview, setIsLastQuestionMarkedForReview] = useState(0)
 const [display, setDisplay] = useState("")
+
 const id = React.useRef(null);
 const clear=()=>{
 window.clearInterval(id.current)
 }
-
 
 useEffect(()=>{
  if(pageIsLoaded===0){
@@ -329,7 +329,6 @@ function handleResponse(option_num, quesNum){
      
    }
   
-  
     if(click_status===2){
       if(response[i] || lastResponse>0){
         m[i] = "#706897" //purple
@@ -353,7 +352,7 @@ function handleResponse(option_num, quesNum){
      m[lastQuestionIndex] = "#E54C32" //red
      setIsVisited(m)
     }
-    if(lastResponse===0 && click_status!==0 && response[lastQuestionIndex]===0){ //problem
+    if(lastResponse===0 && click_status!==0 && response[lastQuestionIndex]===0){
      m[click_status===1?i-1:i+1] = "#E54C32"; //red
      setIsVisited(m)
     }  
@@ -465,7 +464,7 @@ for(var i=0; i<noOfQuestions; i++){
         })
         .then((willDelete) => {
           if (willDelete) {
-            history.push({pathname: './scorecard', state: { score: score }})
+            history.push({pathname: './greetuser', state: { score: score }})
             swal("Quiz Aborted!", {
               icon: "success",
             });
@@ -494,7 +493,7 @@ for(var i=0; i<noOfQuestions; i++){
          </div>
     </div>
     <div className="col-md-4 question-template-right">
-    <div className="row">{buttonForEachQuestion} </div>
+    <div className="row ques-buttons">{buttonForEachQuestion} </div>
     <div className="row instructions">
       <div><span className="red"></span> Not Answered</div>
       <div><span className="green"></span> Answered</div>
