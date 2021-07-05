@@ -349,12 +349,12 @@ padding-left: 8%;
     }
 }
 
-@media only screen and (max-height: 750px){
+@media only screen and (max-height: 750px) and (orientation: portrait) {
    .question-template {
        margin-top: 0px;
    }
 }
-@media only screen and (max-height: 730px){
+@media only screen and (max-height: 730px) and (orientation: portrait){
     .App-screen {
         height: 100%;
     }
