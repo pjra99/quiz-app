@@ -1,1 +1,1 @@
-Visit this site on: https://intelli-quiz.netlify.app/
+Visit this site at: https://intelli-quiz.netlify.app/
