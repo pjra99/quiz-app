@@ -219,6 +219,10 @@ padding-top: 10%;
   .question-statement {
       margin-top: 10%;
   }
+.App-screen {
+        height: 100vh;
+        /* padding-bottom: 12%; */
+    }
   .middle-screen {
       margin-top:20px;
   }
@@ -260,6 +264,7 @@ padding-left: 8%;
     }
     .greet-user {
         top: 10%;
+
     }
     .options {
         margin-left: 10px;
