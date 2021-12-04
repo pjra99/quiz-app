@@ -221,6 +221,10 @@
   .question-statement {
     margin-top: 10%;
   }
+  .App-screen {
+    height: 100vh;
+    /* padding-bottom: 12%; */
+  }
   .middle-screen {
     margin-top: 20px;
   }
@@ -252,6 +256,7 @@
     z-index: 1;
   }
 }
+
 @media only screen and (max-width: 400px) {
   .greet-user {
     margin-top: 100px;
@@ -332,6 +337,7 @@
   display: flex;
   justify-content: center;
 }
+
 .reset-quiz-btn {
   background: none;
   border: 2px solid #107eeb;
@@ -355,9 +361,9 @@
   }
 }
 @media only screen and (max-height: 730px) and (orientation: portrait) {
-  .App-screen {
+  /* .App-screen {
     height: 100%;
-  }
+  } */
   .question-template {
     margin: 0px;
     width: 100%;
