@@ -217,16 +217,19 @@
     left: 36%;
   }
 }
-@media screen and (min-width:540px) and (max-width:990px){
+@media screen and (min-width:490px) and (max-width:990px){
   .option-section {
     display: flex;
     justify-content: center;
     margin-right: 13%;
   }
+  .App-screen {
+    height:100%;
+  }
 }
-@media screen and (min-width:490px) and (max-width:990px){
+@media screen and (max-height:480px){
 .App-screen {
-  height:100vh ;
+  height:100%;
 }
 }
 @media only screen and (max-width: 991px) {
