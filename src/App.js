@@ -42,8 +42,8 @@ function QuestionTemplate() {
 
   const [score, setScore] = useState(0);
   const [flag, setFlag] = useState(0);
-  const [seconds, setSeconds] = useState(4);
-  const [minutes, setMinutes] = useState(59);
+  const [minutes, setMinutes] = useState(9);
+  const [seconds, setSeconds] = useState(59);
   var [response, setResponse] = useState([]);
   var [isAnswered, setIsAnswered] = useState();
   var noOfQuestions = 10;
@@ -62,7 +62,30 @@ function QuestionTemplate() {
   const clear = () => {
     window.clearInterval(id.current);
   };
-
+  window.onbeforeunload = function () {
+    alert("Your work will be lost.");
+  };
+  window.onpopstate = function (e) {
+    this.window.history.forward();
+    swal({
+      title: "Are you sure to Abort the Quiz?",
+      text: "Once you click 'OK', you will not be able to return back and your Score till now would not be shown.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        history.push({
+          pathname: "./greetuser",
+          state: { score: score },
+        });
+        swal("Quiz Aborted!", {
+          icon: "success",
+        });
+      } else {
+      }
+    });
+  };
   useEffect(() => {
     if (pageIsLoaded === 0) {
       let resp = [];

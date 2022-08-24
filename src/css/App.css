@@ -217,14 +217,23 @@
     left: 36%;
   }
 }
+@media screen and (min-width:540px) and (max-width:990px){
+  .option-section {
+    display: flex;
+    justify-content: center;
+    margin-right: 13%;
+  }
+}
+@media screen and (min-width:490px) and (max-width:990px){
+.App-screen {
+  height:100vh ;
+}
+}
 @media only screen and (max-width: 991px) {
   .question-statement {
     margin-top: 10%;
   }
-  .App-screen {
-    height: 100vh;
-    /* padding-bottom: 12%; */
-  }
+ 
   .middle-screen {
     margin-top: 20px;
   }
@@ -261,10 +270,7 @@
   .greet-user {
     margin-top: 100px;
   }
-  .App-screen {
-    height: 100vh;
-    /* padding-bottom: 12%; */
-  }
+ 
   .greet-user {
     top: 10%;
   }
@@ -347,9 +353,9 @@
 }
 
 @media only screen and (max-width: 280px) {
-  .App-screen {
+  /* .App-screen {
     height: 100%;
-  }
+  } */
   .question-template {
     right: 2%;
   }
