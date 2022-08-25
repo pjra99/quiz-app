@@ -65,7 +65,18 @@ function QuestionTemplate() {
   window.onbeforeunload = function () {
     alert("Your work will be lost.");
   };
+  // console.log(window.location.pathname);
+  let isAborted = false;
   window.onpopstate = function (e) {
+    let path = window.location.pathname;
+    console.log(path);
+
+    if (path == "/questiontemplate") {
+      this.window.history.forward();
+      return;
+    }
+
+    // if (path !== "/questiontemplate") {
     this.window.history.forward();
     swal({
       title: "Are you sure to Abort the Quiz?",
@@ -82,9 +93,9 @@ function QuestionTemplate() {
         swal("Quiz Aborted!", {
           icon: "success",
         });
-      } else {
       }
     });
+    // }
   };
   useEffect(() => {
     if (pageIsLoaded === 0) {
