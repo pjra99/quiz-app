@@ -24,9 +24,6 @@ function App() {
           <Route path="/questiontemplate">
             <QuestionTemplate />
           </Route>
-          <Route path="/greetuser">
-            <GreetUser />
-          </Route>
           <Route path="/scorecard">
             <ScoreCard />
           </Route>
@@ -62,41 +59,31 @@ function QuestionTemplate() {
   const clear = () => {
     window.clearInterval(id.current);
   };
-  window.onbeforeunload = function () {
-    alert("Your work will be lost.");
-  };
-  // console.log(window.location.pathname);
-  let isAborted = false;
-  window.onpopstate = function (e) {
-    let path = window.location.pathname;
-    console.log(path);
 
-    if (path == "/questiontemplate") {
-      this.window.history.forward();
-      return;
-    }
+  console.log(window.location.pathname);
+  let path = window.location.pathname;
+  console.log(path);
 
-    // if (path !== "/questiontemplate") {
-    this.window.history.forward();
-    swal({
-      title: "Are you sure to Abort the Quiz?",
-      text: "Once you click 'OK', you will not be able to return back and your Score till now would not be shown.",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        history.push({
-          pathname: "./greetuser",
-          state: { score: score },
-        });
-        swal("Quiz Aborted!", {
-          icon: "success",
-        });
-      }
-    });
-    // }
-  };
+  // window.onpopstate = function (e) {
+  //   this.window.history.forward();
+  //   swal({
+  //     title: "Are you sure to Abort the Quiz?",
+  //     text: "Once you click 'OK', you will not be able to return back and your Score till now would not be shown.",
+  //     icon: "warning",
+  //     buttons: true,
+  //     dangerMode: true,
+  //   }).then((willDelete) => {
+  //     if (willDelete) {
+  //       history.push({
+  //         pathname: "./",
+  //         state: { score: score },
+  //       });
+  //       swal("Quiz Aborted!", {
+  //         icon: "success",
+  //       });
+  //     }
+  //   });
+  // };
   useEffect(() => {
     if (pageIsLoaded === 0) {
       let resp = [];
@@ -522,7 +509,7 @@ function QuestionTemplate() {
                 }).then((willDelete) => {
                   if (willDelete) {
                     history.push({
-                      pathname: "./greetuser",
+                      pathname: "./",
                       state: { score: score },
                     });
                     swal("Quiz Aborted!", {
