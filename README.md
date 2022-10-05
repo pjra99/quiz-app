@@ -7,3 +7,7 @@ Visit Live: https://intelli-quiz.netlify.app/
 ## Images
 
 ![](quiz-app-screenshots/Screenshot%20(715).png)
+![](quiz-app-screenshots/Screenshot%20(716).png)
+![](quiz-app-screenshots/Screenshot%20(718).png)
+![](quiz-app-screenshots/Screenshot%20(719).png)
+![](quiz-app-screenshots/Screenshot%20(720).png)
